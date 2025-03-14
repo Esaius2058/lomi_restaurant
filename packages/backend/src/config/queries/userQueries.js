@@ -2,7 +2,7 @@ import prisma from "../utils/prisma/prisma";
 const bcrypt = require('bcryptjs')
 
 
-async function handleCreateUser(email, name, password, role) {
+export async function handleCreateUser(email, name, password, role) {
     const user = await prisma.user.create({
         data: {
             email,
@@ -14,7 +14,7 @@ async function handleCreateUser(email, name, password, role) {
     return user;
 }
 
-async function handleUpdateUser(id, name, email, password){
+export async function handleUpdateUser(id, name, email, password){
     const user = await prisma.user.update({
         where: {
             id,
@@ -28,7 +28,7 @@ async function handleUpdateUser(id, name, email, password){
     return user;
 }
 
-async function handleDeleteUser(id){
+export async function handleDeleteUser(id){
     const user = await prisma.user.delete({
         where: {
             id,
@@ -37,7 +37,7 @@ async function handleDeleteUser(id){
     return user;
 }
 
-async function handleGetUser(id){
+export async function handleGetUser(id){
     const user = await prisma.user.findUnique({
         where: {
             id,
@@ -46,9 +46,7 @@ async function handleGetUser(id){
     return user;
 }
 
-async function handleGetAllUsers(){
+export async function handleGetAllUsers(){
     const users = await prisma.user.findMany();
     return users;
 }
-
-
