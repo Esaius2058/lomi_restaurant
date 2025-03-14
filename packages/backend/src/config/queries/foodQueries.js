@@ -1,6 +1,6 @@
 import prisma from "../utils/prisma/prisma";
 
-function handleError(error) {
+export function handleError(error) {
     console.error("Error:", error);
     process.exit(1);
 }
