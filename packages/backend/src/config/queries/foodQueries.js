@@ -1,6 +1,6 @@
 import prisma from "../utils/prisma/prisma";
 
-function handleError(error) {
+export function handleError(error) {
     console.error("Error:", error);
     process.exit(1);
 }
@@ -10,23 +10,25 @@ export async function handleFetchMenu() {
     return menu;
 }
 
-export async function handleAddFoodItem({ name, price, category }) {
+export async function handleAddFoodItem({ name, price, category, image_url}) {
     const foodItem = await prisma.food.create({
         data: {
             name,
             price,
             category,
+            image_url,
         },
     });
-    return menuItem;
+    return foodItem;
 }
 
-export async function handleEditFoodItem(name, price, category) {
+export async function handleEditFoodItem(id, name, price, category) {
     const foodItem = await prisma.food.update({
         where: {
-            name,
+            id,
         },
         data: {
+            name,
             price,
             category,
         },
@@ -34,19 +36,19 @@ export async function handleEditFoodItem(name, price, category) {
     return foodItem;
 }
 
-export async function handleDeleteFoodItem(name) {
+export async function handleDeleteFoodItem(id) {
     const foodItem = await prisma.food.delete({
         where: {
-            name,
+            id,
         },
     });
     return foodItem;
 }
 
-export async function handleStoreFoodImage(name, image_url) {
+export async function handleStoreFoodImage(id, image_url) {
     const foodItem = await prisma.food.update({
         where: {
-            name,
+            id,
         },
         data: {
             image_url,
@@ -64,10 +66,10 @@ export async function handleFilterByCategory(category) {
     return foodItems;
 }
 
-export async function handleMarkAvailability(name, availability) {
+export async function handleMarkAvailability(id, availability) {
     const foodItem = await prisma.food.update({
         where: {
-            name,
+            id,
         },
         data: {
             availability,
@@ -76,3 +78,11 @@ export async function handleMarkAvailability(name, availability) {
     return foodItem;
 }
 
+export async function handleGetFoodItem(id) {
+    const foodItem = await prisma.food.findUnique({
+        where: {
+            id,
+        }
+    })
+    return foodItem;
+}
