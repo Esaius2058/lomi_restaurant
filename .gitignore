@@ -3,5 +3,14 @@ dist
 dist-ssr
 *.local
 *.env
-packages/frontend/.env
-packages/backend/.env
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
