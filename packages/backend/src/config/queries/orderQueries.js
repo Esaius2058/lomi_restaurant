@@ -1,70 +1,66 @@
-import { idText } from "typescript";
 import prisma from "../../utils/prisma/prisma";
 
 export async function handleCreateOrder(userId, totalPrice) {
+  try {
     const order = await prisma.order.create({
-        data: {
-            userId,
-            totalPrice,
-        }
+      data: {
+        userId,
+        totalPrice,
+      },
     });
+    return order;
+  } catch (error) {
+    console.error("Error creating order: ", error);
+  }
 }
 
+
 export async function handleGetOrderById(orderId) {
+  try {
     const orderItem = await prisma.order.findUnique({
-        where: {
-            id: orderId
-        }
+      where: {
+        id: orderId,
+      },
     });
+    return orderItem;
+  } catch (error) {
+    console.error("Error fetching order by id: ", error);
+  }
 }
 
 export async function handleUpdateOrder(orderId, totalPrice) {
-    const order = await prisma.order.update({
-        where: {
-            id: orderId
-        },
-        data: {
-            totalPrice
-        }
+  try {
+    const updatedOrder = await prisma.order.update({
+      where: {
+        id: orderId,
+      },
+      data: {
+        totalPrice,
+      },
     });
-}   
+    return updatedOrder;
+  } catch (error) {
+    console.error("Error updating order: ", error);
+  }
+}
 export async function handleDeleteOrder(orderId) {
+  try {
     const order = await prisma.order.delete({
-        where: {
-            id: orderId
-        }
+      where: {
+        id: orderId,
+      },
     });
+    return order;
+  } catch (error) {
+    console.error("Error deleting order: ", error);
+  }
 }
-export async function handlecreateOrderItem(orderId, productId, quantity) {
-    const orderItem = await prisma.orderItem.create({
-        data: {
-            orderId,
-            productId,
-            quantity
-        }
-    });
-}
-export async function handleReadOrderItems(orderId) {
-    const orderItems = await prisma.orderItem.findMany({
-        where: {
-            orderId
-        }
-    });
-}   
-export async function handleUpdateOrderItem(orderItemId, quantity) {
-    const orderItem = await prisma.orderItem.update({
-        where: {
-            id: orderItemId
-        },
-        data: {
-            quantity
-        }
-    });
-}
-export async function handleDeleteOrderItem(orderItemId) {       
-    const orderItem = await prisma.orderItem.delete({
-        where: {
-            id: orderItemId
-        }
-    });
+
+export async function handleGetAllOrders() {
+  try {
+    const orders = await prisma.order.findMany();
+    return orders;
+  } catch (error) {
+    console.error("Error fetching orders: ", error);
+  }
 }
