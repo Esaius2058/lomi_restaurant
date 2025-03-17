@@ -1,23 +1,13 @@
 import prisma from "../utils/prisma/prisma";
+import { handleCreateOrderItem, handleGetOrderItemById, handleUpdateOrderItem, handleDeleteOrderItem, handleGetOrderItemsByOrderId, handleDeleteAllOrderItems,handleGetOrderItemsByFoodId, handleGetOrderItemsByFoodIdAndOrderId } from "../config/queries/orderItemQueries";
 
 export async function createOrderItem(req, res) {
-    try {
-        const orderItem = await prisma.orderItem.create({
-            data: {
-                order: {
-                    connect: {
-                        id: req.body.orderId,
-                    },
-                },
-                food: {
-                    connect: {
-                        id: req.body.foodId,
-                    },
-                },
-                quantity: req.body.quantity,
-            },
-        });
+    const total = req.body.total;
+    const orderId = req.body.orderId;
+    const foodId = req.body.foodId;
 
+    try {
+        const orderItem = await handleCreateOrderItem(total, orderId, foodId);
         res.status(201).json(orderItem);
     } catch (error) {
         console.error("Error creating order item: ", error);
@@ -27,14 +17,7 @@ export async function createOrderItem(req, res) {
 
 export async function getAllOrderItems(req, res) {
     try {
-        const orderItems = await prisma.orderItem.findMany({
-            where: {
-                orderId: req.params.orderId,
-            },
-            include: {
-                food: true,
-            },
-        });
+        const orderItems = await getAllOrderItems();
 
         res.status(200).json(orderItems);
     } catch (error) {
@@ -44,12 +27,9 @@ export async function getAllOrderItems(req, res) {
 }
 
 export async function getOrderItemById(req, res) {
+    const orderItemId = parseInt(req.params.id);
     try {
-        const orderItem = await prisma.orderItem.findUnique({
-            where: {
-                id: parseInt(req.params.id),
-            },
-        });
+        const orderItem = await handleGetOrderItemById(orderItemId);
 
         if (!orderItem) {
             return res.status(404).json({ message: "Order item not found" });
@@ -62,16 +42,25 @@ export async function getOrderItemById(req, res) {
     }
 }
 
-export async function updateOrderItem(req, res) {
+export const getOrderItemsByOrderId = async (req, res) => {
+    const orderId = parseInt(req.params.orderId);
+
     try {
-        const orderItem = await prisma.orderItem.update({
-            where: {
-                id: parseInt(req.params.id),
-            },
-            data: {
-                quantity: req.body.quantity,
-            },
-        });
+        const orderItems = await handleGetOrderItemsByOrderId(orderId);
+
+        res.status(200).json(orderItems);
+    } catch (error) {
+        console.error("Error fetching order items by order id: ", error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+}
+
+export async function updateOrderItem(req, res) {
+    const orderId = parseInt(req.params.id);
+    const totalPrice = req.body.totalPrice;
+
+    try {
+        const orderItem = await handleUpdateOrderItem(orderId, totalPrice);
 
         res.status(200).json(orderItem);
     } catch (error) {
@@ -81,12 +70,10 @@ export async function updateOrderItem(req, res) {
 }
 
 export async function deleteOrderItem(req, res) {
+    const orderItemId = parseInt(req.params.id);
+
     try {
-        await prisma.orderItem.delete({
-            where: {
-                id: parseInt(req.params.id),
-            },
-        });
+        await handleDeleteOrderItem(orderItemId);
 
         res.status(204).end();
     } catch (error) {
@@ -97,11 +84,7 @@ export async function deleteOrderItem(req, res) {
 
 export async function deleteAllOrderItems(req, res) {
     try {
-        await prisma.orderItem.deleteMany({
-            where: {
-                orderId: req.params.orderId,
-            },
-        });
+        await handleDeleteAllOrderItems();
 
         res.status(204).end();
     } catch (error) {
@@ -111,12 +94,10 @@ export async function deleteAllOrderItems(req, res) {
 }
 
 export async function getOrderItemByFoodId(req, res) {
+    const foodId = parseInt(req.params.foodId);
+
     try {
-        const orderItem = await prisma.orderItem.findFirst({
-            where: {
-                foodId: parseInt(req.params.foodId),
-            },
-        });
+        const orderItem = await handleGetOrderItemsByFoodId(foodId);
 
         if (!orderItem) {
             return res.status(404).json({ message: "Order item not found" });
@@ -130,13 +111,11 @@ export async function getOrderItemByFoodId(req, res) {
 }
 
 export async function getOrderItemByOrderIdAndFoodId(req, res) {
+    const orderId = parseInt(req.params.orderId);
+    const foodId = parseInt(req.params.foodId);
+
     try {
-        const orderItem = await prisma.orderItem.findFirst({
-            where: {
-                orderId: parseInt(req.params.orderId),
-                foodId: parseInt(req.params.foodId),
-            },
-        });
+        const orderItem = await handleGetOrderItemsByFoodIdAndOrderId(foodId, orderId);
 
         if (!orderItem) {
             return res.status(404).json({ message: "Order item not found" });
