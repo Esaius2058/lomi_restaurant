@@ -1,6 +1,6 @@
 import prisma from "../../config/prisma";
 
-export async function createOrderItem(total, orderId, foodId){
+export async function handleCreateOrderItem(total, orderId, foodId){
     try{
         const orderItem = await prisma.orderItem.create({
             data: {
@@ -15,7 +15,7 @@ export async function createOrderItem(total, orderId, foodId){
     }
 }
 
-export async function getOrderItemById(orderItemId){
+export async function handleGetOrderItemById(orderItemId){
     try{
         const orderItem = await prisma.orderItem.findUnique({
             where: {
@@ -28,7 +28,7 @@ export async function getOrderItemById(orderItemId){
     }
 }
 
-export async function updateOrderItem(orderItemId, total){
+export async function handleUpdateOrderItem(orderItemId, total){
     try{
         const updatedOrderItem = await prisma.orderItem.update({
             where: {
@@ -53,7 +53,7 @@ export async function handleDeleteAllOrderItems(){
     }
 }
 
-export async function deleteOrderItem(orderItemId){
+export async function handleDeleteOrderItem(orderItemId){
     try{
         const orderItem = await prisma.orderItem.delete({
             where: {
@@ -66,7 +66,7 @@ export async function deleteOrderItem(orderItemId){
     }
 }
 
-export async function getOrderItemsByOrderId(orderId){
+export async function handleGetOrderItemsByOrderId(orderId){
     try{
         const orderItems = await prisma.orderItem.findMany({
             where: {
@@ -79,7 +79,7 @@ export async function getOrderItemsByOrderId(orderId){
     }
 }
 
-export async function getOrderItemsByFoodId(foodId){
+export async function handleGetOrderItemsByFoodId(foodId){
     try{
         const orderItems = await prisma.orderItem.findMany({
             where: {
@@ -92,7 +92,7 @@ export async function getOrderItemsByFoodId(foodId){
     }
 }
 
-export async function getOrderItemsByFoodIdAndOrderId(foodId, orderId){
+export async function handleGetOrderItemsByFoodIdAndOrderId(foodId, orderId){
     try{
         const orderItems = await prisma.orderItem.findMany({
             where: {
