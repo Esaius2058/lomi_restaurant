@@ -14,6 +14,18 @@ export async function handleCreateOrder(userId, totalPrice) {
   }
 }
 
+export async function handleGetOrderByStatus(status) {
+  try {
+    const order = await prisma.order.findMany({
+      where: {
+        status,
+      },
+    });
+    return order;
+  } catch (error) {
+    console.error("Error fetching order by status: ", error);
+  }
+}
 
 export async function handleGetOrderById(orderId) {
   try {
