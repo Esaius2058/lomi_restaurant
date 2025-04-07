@@ -1,4 +1,3 @@
-import prisma from "../utils/prisma/prisma";
 import {
   handleAddFoodItem,
   handleDeleteFoodItem,
@@ -6,6 +5,7 @@ import {
   handleError,
   handleFetchMenu,
   handleFilterByCategory,
+  handleGetFoodItem,
   handleMarkAvailability,
   handleStoreFoodImage,
 } from "../config/queries/foodQueries";
@@ -37,7 +37,9 @@ export async function getAllFoodItems(req, res) {
 
 export async function getFoodById(req, res) {
   try {
-    const food = await han
+    const food = await handleGetFoodItem(parseInt(req.params.id)).catch(
+      handleError
+    );
 
     if (!food) {
       return res.status(404).json({ message: "Food not found" });
@@ -50,18 +52,54 @@ export async function getFoodById(req, res) {
   }
 }
 
+export async function storeImage(req, res) {
+  try{
+    const { image, id } = req.body;
+    await handleStoreFoodImage(id, image);
+
+    res.status(200).json( {message: "Image uploaded successfully!" });
+  }catch(error){
+    console.error("Error uploading image: ", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+}
+
+export async function checkAvailabality(req, res) {
+  try{
+    const { id } = req.params;
+    const available = await handleMarkAvailability(id);
+
+    res.status(200).json({available});
+  }catch(error){
+    console.error("Error checking availability: ", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+}
+
+export async function filterByCategory(req, res) {
+  try{
+    const { category } = req.params;
+    const filteredMenu = await handleFilterByCategory(category);
+
+    res.status(200).json({ filteredMenu });
+  }catch(error){
+    console.error("Error filtering menu: ", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+}
+
 export async function updateFood(req, res) {
   try {
-    const food = await prisma.food.update({
-      where: {
-        id: parseInt(req.params.id),
-      },
-      data: {
-        name: req.body.name,
-        description: req.body.description,
-        price: req.body.price,
-      },
-    });
+    const food = await handleEditFoodItem(
+      parseInt(req.params.id),
+      req.body.name,
+      req.body.price,
+      req.body.category
+    ).catch(handleError);
+
+    if (!food) {
+      return res.status(404).json({ message: "Food not found" });
+    }
 
     res.status(200).json(food);
   } catch (error) {
@@ -72,11 +110,7 @@ export async function updateFood(req, res) {
 
 export async function deleteFood(req, res) {
   try {
-    await prisma.food.delete({
-      where: {
-        id: parseInt(req.params.id),
-      },
-    });
+    await handleDeleteFoodItem(parseInt(req.params.id)).catch(handleError);
 
     res.status(204).end();
   } catch (error) {
