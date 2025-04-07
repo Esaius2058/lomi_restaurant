@@ -1,36 +1,36 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { handleCreateUser, handleUpdateUser, handleDeleteUser,handleGetAllUsers, handleGetUser, handleGetUserByEmail } from "../config/queries/userQueries";
+import { handleCreateUser, handleUpdateUser, handleDeleteUser, handleGetAllUsers, handleGetUser, handleGetUserByEmail } from "../config/queries/userQueries";
 
 export async function createUser(req, res) {
-  try {
-    const { username, email, password } = req.body;
+    try {
+        const { username, email, password } = req.body;
 
-    const existingUser = await handleGetUserByEmail(email);
+        const existingUser = await handleGetUserByEmail(email);
 
-    if (existingUser) {
-      return res.status(400).json({ message: "User already exists" });
+        if (existingUser) {
+            return res.status(400).json({ message: "User already exists" });
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const newUser = await handleCreateUser(email, username, hashedPassword);
+
+        //generate JWT token
+        const token = jwt.sign(
+            { id: newUser.id },
+            process.env.JWT_SECRET,
+            { expiresIn: "4h" }
+        );
+
+        res.status(201).json({ message: "User registered successfully", token });
+    } catch (error) {
+        console.error("Error creating user: ", error);
+        res.status(500).json({ message: "Internal Server Error" });
     }
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = await handleCreateUser(email, name, hashedPassword);
-
-    //generate JWT token
-    const token = jwt.sign(
-        { id: newUser.id },
-        process.env.JWT_SECRET,
-        { expiresIn: "4h" }
-    );
-
-    res.status(201).json({ message: "User registered successfully",token });
-  } catch (error) {
-    console.error("Error creating user: ", error);
-    res.status(500).json({ message: "Internal Server Error" });
-  }
 }
 
 export async function loginUser(req, res) {
-    try{
+    try {
         const { email, password } = req.body;
 
         const user = await handleGetUserByEmail(email);
@@ -53,7 +53,7 @@ export async function loginUser(req, res) {
         );
 
         res.status(200).json({ message: "User logged in successfully", token });
-    }catch(error){
+    } catch (error) {
         console.error("Error logging in user: ", error);
         res.status(500).json({ message: "Internal Server Error" });
     }
@@ -91,7 +91,7 @@ export async function getAllUsers(req, res) {
 
 export async function getUserProfile(req, res) {
     try {
-      const userId = req.user.id;
+        const userId = req.user.id;
         const user = await handleGetUser(Number(userId));
 
         res.status(200).json(user);
@@ -119,7 +119,7 @@ export async function updateUserProfile(req, res) {
 
 export async function deleteUserProfile(req, res) {
     try {
-      const userId = req.user.id;
+        const userId = req.user.id;
         await handleDeleteUser(userId);
 
         res.status(200).json({ message: "User deleted successfully" });
