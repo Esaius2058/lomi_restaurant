@@ -1,4 +1,3 @@
-import prisma from "../utils/prisma/prisma";
 import { handleCreateOrderItem, handleGetOrderItemById, handleUpdateOrderItem, handleDeleteOrderItem, handleGetOrderItemsByOrderId, handleDeleteAllOrderItems,handleGetOrderItemsByFoodId, handleGetOrderItemsByFoodIdAndOrderId } from "../config/queries/orderItemQueries";
 
 export async function createOrderItem(req, res) {
