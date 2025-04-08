@@ -1,4 +1,3 @@
-import prisma from "../utils/prisma/prisma";
 import {
   handleCreateOrder,
   handleGetOrderById,
@@ -6,7 +5,7 @@ import {
   handleDeleteOrder,
   handleGetAllOrders,
   handleGetOrderByStatus,
-} from "../config/queries/orderQueries";
+} from "../config/queries/orderQueries.js";
 
 export async function createOrder(req, res) {
   const userId = req.user.id;

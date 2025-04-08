@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { handleCreateUser, handleUpdateUser, handleDeleteUser, handleGetAllUsers, handleGetUser, handleGetUserByEmail } from "../config/queries/userQueries";
+import { handleCreateUser, handleUpdateUser, handleDeleteUser, handleGetAllUsers, handleGetUser, handleGetUserByEmail } from "../config/queries/userQueries.js";
 
 export async function createUser(req, res) {
     try {
@@ -17,7 +17,10 @@ export async function createUser(req, res) {
 
         //generate JWT token
         const token = jwt.sign(
-            { id: newUser.id },
+            { 
+                sub: newUser.id,
+                id: newUser.id 
+            },
             process.env.JWT_SECRET,
             { expiresIn: "4h" }
         );
@@ -34,12 +37,13 @@ export async function loginUser(req, res) {
         const { email, password } = req.body;
 
         const user = await handleGetUserByEmail(email);
+        console.log("User: ", user);
 
         if (!user) {
             return res.status(400).json({ message: "Invalid credentials, no such user!" });
         }
 
-        const passwordMatch = await bcrypt.compare(password, user.password);
+        const passwordMatch = await bcrypt.compare(password, user.passwordHash);
 
         if (!passwordMatch) {
             return res.status(400).json({ message: "Wrong Password" });
@@ -47,7 +51,10 @@ export async function loginUser(req, res) {
 
         //generate JWT token
         const token = jwt.sign(
-            { id: user.id },
+            { 
+                sub: user.id,
+                id: user.id 
+            },
             process.env.JWT_SECRET,
             { expiresIn: "4h" }
         );
@@ -57,25 +64,6 @@ export async function loginUser(req, res) {
         console.error("Error logging in user: ", error);
         res.status(500).json({ message: "Internal Server Error" });
     }
-}
-
-export async function ensureAuthenticated(req, res, next) {
-    passport.authenticate("jwt", { session: false }, (err, user) => {
-        if (err || !user) {
-            return res.status(401).json({ message: "Unauthorized" });
-        }
-
-        req.user = user;
-        return next();
-    })(req, res, next);
-}
-
-export async function ensureAdmin(req, res, next) {
-    if (req.user.role !== "admin") {
-        return res.status(401).json({ message: "Unauthorized" });
-    }
-
-    return next();
 }
 
 export async function getAllUsers(req, res) {

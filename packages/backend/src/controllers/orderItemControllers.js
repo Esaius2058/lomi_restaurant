@@ -1,4 +1,4 @@
-import { handleCreateOrderItem, handleGetOrderItemById, handleUpdateOrderItem, handleDeleteOrderItem, handleGetOrderItemsByOrderId, handleDeleteAllOrderItems,handleGetOrderItemsByFoodId, handleGetOrderItemsByFoodIdAndOrderId } from "../config/queries/orderItemQueries";
+import { handleCreateOrderItem, handleGetOrderItemById, handleUpdateOrderItem, handleDeleteOrderItem, handleGetOrderItemsByOrderId, handleDeleteAllOrderItems,handleGetOrderItemsByFoodId, handleGetOrderItemsByFoodIdAndOrderId } from "../config/queries/orderItemQueries.js";
 
 export async function createOrderItem(req, res) {
     const total = req.body.total;

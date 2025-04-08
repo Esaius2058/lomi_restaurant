@@ -8,7 +8,7 @@ import {
   handleGetFoodItem,
   handleMarkAvailability,
   handleStoreFoodImage,
-} from "../config/queries/foodQueries";
+} from "../config/queries/foodQueries.js";
 
 export async function createFood(req, res, next) {
   try {
