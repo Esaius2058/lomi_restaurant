@@ -1,4 +1,4 @@
-import prisma from "../../config/prisma";
+import prisma from "../../utils/prisma.js";
 
 export async function handleCreateOrderItem(total, orderId, foodId){
     try{

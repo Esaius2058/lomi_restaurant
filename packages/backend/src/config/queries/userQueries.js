@@ -1,17 +1,17 @@
-import prisma from "../../config/prisma";
+import prisma from "../../utils/prisma.js";
 
-export async function handleCreateUser(email, name, password) {
+export async function handleCreateUser(email, name, passwordHash) {
     const user = await prisma.user.create({
         data: {
             email,
             name,
-            password,
+            passwordHash,
         },
     });
     return user;
 }
 
-export async function handleUpdateUser(id, name, email, password){
+export async function handleUpdateUser(id, name, email, passwordHash){
     const user = await prisma.user.update({
         where: {
             id,
@@ -19,7 +19,7 @@ export async function handleUpdateUser(id, name, email, password){
         data: {
             email,
             name,
-            password,
+            passwordHash,
         },
     });
     return user;

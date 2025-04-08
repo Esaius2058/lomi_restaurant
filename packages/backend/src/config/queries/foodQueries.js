@@ -1,4 +1,4 @@
-import prisma from "../../config/prisma";
+import prisma from "../../utils/prisma.js";
 
 export function handleError(error) {
     console.error("Error:", error);
