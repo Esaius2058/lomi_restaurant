@@ -7,7 +7,8 @@
         "dev": "nodemon index.js",
         "start": "node src/index.js",
         "build": "prisma generate",
-        "migrate": "prisma migrate dev --name init"
+        "migrate": "prisma migrate dev --name init",
+        "test": "NODE_OPTIONS='--experimental-vm-modules' jest"
     },
     "prisma": {
         "seed": "node prisma/seed.js"
@@ -30,8 +31,11 @@
         "url": "^0.11.4"
     },
     "devDependencies": {
+        "@types/supertest": "^6.0.3",
+        "jest": "^29.7.0",
         "nodemon": "^3.0.0",
-        "prisma": "^6.5.0"
+        "prisma": "^6.5.0",
+        "supertest": "^7.1.0"
     },
     "keywords": [],
     "author": "",
