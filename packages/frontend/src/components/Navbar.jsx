@@ -4,7 +4,7 @@ function NavBar() {
   return (
     <nav className="navbar">
       <div className="logo-container">
-        <img src={"/lomi_logo.svg"} alt={"lomi_logo"} className="lomi-logo"/>
+        <img src={"/cloud.svg"} alt={"lomi-logo"} className="lomi-logo"/>
       </div>
       <div className="nav-links">
         <Link>Home</Link>
