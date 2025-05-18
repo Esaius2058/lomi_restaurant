@@ -16,8 +16,11 @@ const HomePage = () => {
           </div>
         </div>
       </div>
+      <div className="menu-preview">
+
+      </div>
     </div>
   );
-}
+};
 
 export default HomePage;
