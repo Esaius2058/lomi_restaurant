@@ -12,7 +12,7 @@ const HomePage = () => {
             <button>Order Now</button>
           </div>
           <div className="home-intro-image">
-            <img src="src/assets/food.jpg" alt="animation" />
+            <img src="/food.jpg" alt="animation" />
           </div>
         </div>
       </div>
