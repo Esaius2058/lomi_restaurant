@@ -4,7 +4,7 @@ const MenuPage = () => {
     return (
         <div className="menu-page">
             <NavBar />
-            <div>Hello</div>
+            <div>Hello World</div>
         </div>
     );
 }
