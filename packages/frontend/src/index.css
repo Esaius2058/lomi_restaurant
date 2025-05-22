@@ -51,6 +51,10 @@ a:hover{
   color: var(--light-brown);
 }
 
+span{
+  font-weight: bold;
+}
+
 .app-container{
   display: flex;
   flex-direction: column;
@@ -187,17 +191,6 @@ input {
   border: 1px solid #ccc;
 }
 
-button {
-  width: 100%;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  background-color: #4caf50;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-}
-
 .password-wrapper {
   position: relative;
 }
@@ -262,4 +255,68 @@ button {
   color: red;
   font-size: 0.85rem;
   margin-top: 0px;
+}
+
+
+/*HOME PAGE*/
+.menu-page{
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  flex-direction: column;
+  justify-content: flex-start;
+  background-color: var(--beige);
+}
+
+.menu-body{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0px 20px;
+}
+
+.menu-section{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.menu-section-header{
+  border-bottom: 2px solid var(--dark-dark-brown);
+  width: 100%;
+}
+
+.menu-section-item{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+  padding: 15px;
+}
+
+.menu-section-item img{
+  width: 120px;
+  height: 120px;
+}
+
+.menu-section-description{
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.menu-section-description-text{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.menu-section-cta button{
+  width: 100px;
+  height: 40px;
+  font-size: 12px;
 }
