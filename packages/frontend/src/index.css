@@ -3,6 +3,7 @@
   line-height: 1.5;
   font-weight: 400;
 
+<<<<<<< Updated upstream
   --light-light-brown: #f5cca0;
   --dark-dark-brown: #7b3e1a;
   --dark-brown: #994d1c;
@@ -15,6 +16,15 @@
   --leafy-green: #6c9a8b; /* For "Available", "Fresh", or vegetarian labels */
   --chili-orange: #ff6f00; /* Eye-catching CTA or hover effect */
 
+=======
+  --light-light-brown: #F5CCA0;
+  --dark-dark-brown: #7B3E1A;
+  --dark-brown: #994D1C;
+  --light-brown: #E48F45;
+  --beige: #DECFA3;
+  --dark-black: #242424;
+  --dark-gray: #333333;
+>>>>>>> Stashed changes
   color: var(--dark-dark-brown);
   color-scheme: light dark;
   background-color: #242424;
@@ -148,6 +158,7 @@ span {
   object-fit: cover;
   border-radius: 20px;
 }
+<<<<<<< Updated upstream
 
 /* Login / Sign up*/
 .container {
@@ -558,3 +569,64 @@ div span {
   font-size: 40px;
   color: var(--navy);
 }
+=======
+.about-page{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100%;
+  width: 100%;
+}
+.about-body{
+  background-image: url('https://img.freepik.com/free-photo/restaurant-interior_1127-3394.jpg');
+  background-size: cover; /* ensures the image covers the entire area */
+  background-repeat: no-repeat; /* prevents repeating */
+  background-position: center; /* centers the image */
+}
+
+
+.about-body{
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  align-items: center;
+}
+.about-body h1{
+  font-size: 60px;
+  font-weight: 500;
+  color:(#333333);
+   
+}
+.about-body p{
+  font-size: 15px;
+  color: var(#333333);
+  
+ 
+}
+.signoff {
+  margin-top: 2rem;
+  padding-top: 3rem;
+  border-top: 1px solid var(--dark-dark-brown);
+  color: var(#242424);
+  text-align: center;
+  max-width: 900px;
+}
+.signoff .greeting {
+  color:var(#242424);
+  font-size: 0.92rem;
+  margin-bottom: 0.5rem;
+}
+.signoff .team-name {
+  font-weight: bold;
+  font-size: 2.1rem;
+  color: #242424;
+  margin-bottom: 0.25rem;
+}
+.signoff .tagline {
+  font-style: italic;
+  color: var(#242424);
+  font-size: 1.5rem;
+}
+
+>>>>>>> Stashed changes
