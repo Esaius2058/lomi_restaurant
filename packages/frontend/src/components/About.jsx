@@ -21,7 +21,8 @@ const AboutPage = () => {
           <p class="tagline">(And,yes, we do accept bribes in the form of compliments.)</p>
         </div>
       </div>
-    </div>
+       </div>
+    
   );
 };
 
