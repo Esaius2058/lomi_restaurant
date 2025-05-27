@@ -98,7 +98,7 @@ span {
   justify-content: space-between;
   padding: 20px;
   width: 100%;
-  height: 75px;
+  height: 65px;
   background-color: var(--dark-dark-brown);
 }
 
@@ -266,7 +266,6 @@ input {
 .menu-page {
   display: flex;
   width: 100%;
-  min-height: 100vh;
   flex-direction: column;
   justify-content: flex-start;
   background-color: var(--beige);
@@ -277,7 +276,9 @@ input {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 0px 20px;
+  min-height: 100vh;
+  width: 100%;
+  padding: 65px 20px 0 20px; /*changed*/
 }
 
 .menu-section {
