@@ -25,12 +25,16 @@ const MainRoutes = () => {
         {
           path: "menu/", // Path for the Menu page
           element: <MenuPage />, // Menu page component
-          children: [
+          /*children: [
             {
               path: "orders",
               element: <Orders />, // Orders page component
             }
-          ]
+          ]*/
+        },
+        {
+          path: "orders/",
+          element: <Orders />,
         },
         {
           path: "auth/login",
