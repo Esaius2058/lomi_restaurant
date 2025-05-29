@@ -5,6 +5,7 @@ import MenuPage from "./Menu";
 import SignUp from "./Signup";
 import Orders from "./Orders";
 import AdminPage from "./Admin";
+import Login from "./Login";
 
 const MainRoutes = () => {
   // Define an array of route configurations
@@ -38,7 +39,7 @@ const MainRoutes = () => {
         },
         {
           path: "auth/login",
-          element: <SignUp />,
+          element: <Login />,
         },
         {
           path: "auth/signup",
