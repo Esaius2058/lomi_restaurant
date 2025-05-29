@@ -4,7 +4,7 @@ import AboutPage from "./About";
 import MenuPage from "./Menu";
 import SignUp from "./Signup";
 import Orders from "./Orders";
-import AdminPage from "./Admin";
+import AdminPage from "./AdminPage";
 import Login from "./Login";
 import RouteWrapper from "./RouteWrapper";
 import ErrorPage from "./ErrorPage";
