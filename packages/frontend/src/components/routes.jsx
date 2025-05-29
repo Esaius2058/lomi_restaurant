@@ -6,6 +6,8 @@ import SignUp from "./Signup";
 import Orders from "./Orders";
 import AdminPage from "./Admin";
 import Login from "./Login";
+import RouteWrapper from "./RouteWrapper";
+import ErrorPage from "./ErrorPage";
 
 const MainRoutes = () => {
   // Define an array of route configurations
@@ -25,30 +27,40 @@ const MainRoutes = () => {
         },
         {
           path: "menu/", // Path for the Menu page
-          element: <MenuPage />, // Menu page component
-          /*children: [
+          element: <RouteWrapper />, // Menu page component
+          children: [
+            {
+              path: "",
+              element: <MenuPage />
+            },
             {
               path: "orders",
               element: <Orders />, // Orders page component
-            }
-          ]*/
+            },
+          ],
         },
         {
-          path: "orders/",
-          element: <Orders />,
-        },
-        {
-          path: "auth/login",
-          element: <Login />,
-        },
-        {
-          path: "auth/signup",
-          element: <SignUp />, 
+          path: "auth/", // Path for the Menu page
+          element: <RouteWrapper />, // Menu page component
+          children: [
+            {
+              path: "login",
+              element: <Login />
+            },
+            {
+              path: "signup",
+              element: <SignUp />, // Orders page component
+            },
+          ],
         },
         {
           path: "admin-dashboard",
-          element: <AdminPage />
-        }
+          element: <AdminPage />,
+        },
+        {
+          path: "*",
+          element: <ErrorPage />,
+        },
       ],
     },
   ];
