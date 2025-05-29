@@ -68,8 +68,8 @@ span {
   align-items: center;
   justify-content: center;
   height: 100vh;
+  width: 100%;
 }
-
 .home-page {
   display: flex;
   flex-direction: column;
@@ -78,19 +78,16 @@ span {
   width: 100%;
   background-color: var(--creamy-yellow);
 }
-
 .home-page h1 {
   font-size: 50px;
   font-weight: 700;
   color: var(--dark-dark-brown);
 }
-
 .home-page h2 {
   font-size: 35px;
   font-weight: 480;
   color: var(--dark-brown);
 }
-
 .navbar {
   display: flex;
   flex-direction: row;
@@ -106,14 +103,12 @@ span {
   width: 80px;
   height: 80px;
 }
-
 .nav-links {
   display: flex;
   gap: 20px;
   font-size: 15px;
   font-weight: 600;
 }
-
 .home-intro-container {
   display: flex;
   flex-direction: column;
@@ -123,7 +118,6 @@ span {
   width: 100%;
   background-color: var(--beige);
 }
-
 .home-intro {
   display: flex;
   justify-content: center;
@@ -137,11 +131,9 @@ span {
   flex-direction: column;
   align-items: center;
 }
-
 .home-intro-text h2 {
   margin-bottom: 20px;
 }
-
 .home-intro-image img {
   width: 300px;
   height: 300px;
@@ -149,6 +141,104 @@ span {
   border-radius: 20px;
 }
 
+/*ORDERS PAGE*/
+/*OrdersPage styles*/
+.orders-page{
+  width: 100%;
+  height: 100%;
+  background: var(--beige);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.orders-content{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  padding-top: 100px;
+  gap: 69px;
+}
+.order-section1{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  gap: 20px;
+  width: 550px;
+  height: 550px;
+  border-radius: 25px;
+  background: var(--golden-brown);
+}
+.order-section1-text{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.order-section1-text h1{
+  color: var(--black);
+  font-feature-settings: 'liga' off, 'clig' off;
+  /* font-family: Inter; */
+  font-size: 35px;
+  font-style: normal;
+  line-height: normal;
+}
+.order-section1-text h2{
+  color: var(--black);
+  font-feature-settings: 'liga' off, 'clig' off;
+  /* font-family: Inter; */
+  font-size: 20px;
+  font-style: normal;
+  line-height: normal;
+}
+.order-section1-separator{
+  width: 100%;
+  height: 1px;
+  background-color: var(--black);
+}
+.order-section1 p{
+  color: var(--dark-dark-brown);
+  font-size: 25px;
+}
+.order-section2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  gap: 20px;
+  width: 400px;
+  height: 550px;
+  border-radius: 25px;
+  background: var(--golden-brown);
+  /* box-sizing: border-box;
+  padding: 20px; */
+}
+.order-section2-text{
+  display: flex;
+  flex-direction: column;
+  align-items: normal;
+}
+.order-section2-separator{
+  width: 100%;
+  height: 1px;
+  background-color: var(--black);
+}
+.order-section2-text h1{
+  color: var(--dark-dark-brown);
+  font-size: 25px;
+}
+.order-section2-text h2{
+  color: var(--dark-dark-brown);
+  font-size: 25px;
+}
+.payment-methods img {
+  width: 90px;
+  height: 30px;
+}
+
+
+/*AUTHENTICATION PAGES*/
 /* Login / Sign up*/
 .container {
   height: 100%;
@@ -157,7 +247,6 @@ span {
   justify-content: center;
   align-items: center;
 }
-
 .form-box {
   background-color: var(--light-light-brown);
   width: max-content;
@@ -165,30 +254,24 @@ span {
   border-radius: 10px;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
 }
-
 .light .form-box {
   background-color: var(--dark-dark-brown);
 }
-
 .dark .form-box {
   background-color: var(--beige);
 }
-
 .form-box h1 {
   text-align: center;
   margin-bottom: 1rem;
 }
-
 .dark {
   background-color: var(--dark-dark-brown);
   color: black;
 }
-
 .light {
   background-color: var(--beige);
   color: white;
 }
-
 input {
   width: 100%;
   padding: 10px;
@@ -196,16 +279,13 @@ input {
   border-radius: 5px;
   border: 1px solid #ccc;
 }
-
 .password-wrapper {
   position: relative;
 }
-
 .password-field {
   position: relative;
   width: 100%;
 }
-
 .password-field input {
   width: 100%;
   padding-right: 60px;
@@ -213,7 +293,6 @@ input {
   height: 2.5rem;
   font-size: 1rem;
 }
-
 .eye-toggle {
   position: absolute;
   color: white;
@@ -224,7 +303,6 @@ input {
   cursor: pointer;
   font-size: 1rem;
 }
-
 .toggle-theme {
   margin-top: 1rem;
   text-align: center;
@@ -233,66 +311,57 @@ input {
   color: #2196f3;
   text-decoration: none;
 }
-
 .signup-link {
   margin-top: 1rem;
   text-align: center;
   font-size: 0.9rem;
 }
-
 .signup-link a {
   color: var(--dark-brown);
 }
-
 .signup-link a {
   color: var(--dark-brown);
 }
-
 .light .signup-link a {
   color: var(--beige);
 }
-
 .signup-link a:hover {
   color: var(--light-brown);
 }
-
 .error-text {
   color: var(--spicy-red);
   font-size: 0.85rem;
   margin-top: 0px;
 }
 
-/*HOME PAGE*/
+/*MENU PAGE*/
 .menu-page {
   display: flex;
   width: 100%;
   flex-direction: column;
   justify-content: flex-start;
   background-color: var(--beige);
+  overflow: scroll;
 }
-
 .menu-body {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
   width: 100%;
-  padding: 65px 20px 0 20px; /*changed*/
+  height: auto;
+  padding: 20px;
 }
-
 .menu-section {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
 }
-
 .menu-section-header {
   border-bottom: 2px solid var(--dark-dark-brown);
   width: 100%;
 }
-
 .menu-section-item {
   display: flex;
   flex-direction: row;
@@ -302,24 +371,20 @@ input {
   gap: 10px;
   padding: 15px;
 }
-
 .menu-section-item img {
   width: 120px;
   height: 120px;
 }
-
 .menu-section-description {
   display: flex;
   align-items: center;
   gap: 20px;
 }
-
 .menu-section-description-text {
   display: flex;
   flex-direction: column;
   gap: 5px;
 }
-
 .menu-section-cta button {
   width: 100px;
   height: 40px;
@@ -547,9 +612,20 @@ div span {
 
 /*ERROR PAGE*/
 .error-page {
-  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
   gap: 60px;
-  background-color: var(--light-gray);
+  background-color: var(--beige);
+  padding: 20px;
+}
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 .error-page h1 {
   font-size: 200px;
