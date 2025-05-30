@@ -1,9 +1,9 @@
-import{ NavBar} from "./Navbar";
+import{ MenuNavbar} from "./Navbar";
 
 const MenuPage = () => {
     return (
         <div className="menu-page">
-            <NavBar />
+            <MenuNavbar />
             <div className="menu-body">
                 <h1>Our Menu</h1>
                 <h2>Authentic Kenyan Dishes</h2>
@@ -11,7 +11,7 @@ const MenuPage = () => {
                     <h1 className="menu-section-header">Main Dishes</h1>
                     <div className="menu-section-item">
                         <div className="menu-section-description">
-                            <img src="/ugali-mayai.png" alt="ugali-mayai" />
+                            <img src="/images/ugali-mayai.png" alt="ugali-mayai" />
                             <div className="menu-section-description-text">
                                 <h3>Ugali Mayai</h3>
                                 <p>Served with sukuma wiki and sliced avocados</p>
@@ -24,7 +24,7 @@ const MenuPage = () => {
                     </div>
                     <div className="menu-section-item">
                         <div className="menu-section-description">
-                            <img src="/githeri.png" alt="Githeri image" />
+                            <img src="/images/githeri.png" alt="Githeri image" />
                             <div className="menu-section-description-text">
                                 <h3>Githeri</h3>
                                 <p>Served with sliced Avocados</p>
@@ -37,7 +37,7 @@ const MenuPage = () => {
                     </div>
                     <div className="menu-section-item">
                         <div className="menu-section-description">
-                            <img src="/pilau special.png" className="border-radius" alt="Pilau Special image" />
+                            <img src="/images/pilau special.png" className="border-radius" alt="Pilau Special image" />
                             <div className="menu-section-description-text">
                                 <h3>Pilau Special</h3>
                                 <p>Served with kachumbari</p>
@@ -51,7 +51,7 @@ const MenuPage = () => {
                     <h1 className="menu-section-header">Snacks</h1>
                     <div className="menu-section-item">
                         <div className="menu-section-description">
-                            <img src="/mandazi.png" className="border-radius" alt="mandazi image" />
+                            <img src="/images/mandazi.png" className="border-radius" alt="mandazi image" />
                             <div className="menu-section-description-text">
                                 <h3>Kenyan Andazi</h3>
                                 <p>Served with hot Kenyan brewed tea</p>
@@ -64,7 +64,7 @@ const MenuPage = () => {
                     </div>
                     <div className="menu-section-item">
                         <div className="menu-section-description">
-                            <img src="/samosas.png" className="border-radius" alt="samosa image" />
+                            <img src="/images/samosas.png" className="border-radius" alt="samosa image" />
                             <div className="menu-section-description-text">
                                 <h3>Kenyan Samosas</h3>
                                 <p>Garnished with corriender</p>
@@ -77,7 +77,7 @@ const MenuPage = () => {
                     </div>
                     <div className="menu-section-item">
                         <div className="menu-section-description">
-                            <img src="/chapatis.png" className="border-radius" alt="chapati image" />
+                            <img src="/images/chapatis.png" className="border-radius" alt="chapati image" />
                             <div className="menu-section-description-text">
                                 <h3>Kenyan Chapatis</h3>
                                 <p>Best enjoyed hot</p>
@@ -91,7 +91,7 @@ const MenuPage = () => {
                     <h1 className="menu-section-header">Drinks</h1>
                     <div className="menu-section-item">
                         <div className="menu-section-description">
-                            <img src="/tea.jpg" className="border-radius" alt="tea image" />
+                            <img src="/images/tea.jpg" className="border-radius" alt="tea image" />
                             <div className="menu-section-description-text">
                                 <h3>Kenyan Tea</h3>
                                 <p>Kenyan brewed tea best enjoyed hot</p>
@@ -104,7 +104,7 @@ const MenuPage = () => {
                     </div>
                     <div className="menu-section-item">
                         <div className="menu-section-description">
-                            <img src="/soda.png" className="border-radius" alt="soda image" />
+                            <img src="/images/soda.png" className="border-radius" alt="soda image" />
                             <div className="menu-section-description-text">
                                 <h3>Soda</h3>
                                 <p>Best enjoyed chilled</p>
@@ -117,7 +117,7 @@ const MenuPage = () => {
                     </div>
                     <div className="menu-section-item">
                         <div className="menu-section-description">
-                            <img src="/juice.png" className="border-radius" alt="juice image" />
+                            <img src="/images/juice.png" className="border-radius" alt="juice image" />
                             <div className="menu-section-description-text">
                                 <h3>Fresh Juice</h3>
                                 <p>Best enjoyed chilled</p>
