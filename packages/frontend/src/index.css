@@ -3,7 +3,6 @@
   line-height: 1.5;
   font-weight: 400;
 
-<<<<<<< Updated upstream
   --light-light-brown: #f5cca0;
   --dark-dark-brown: #7b3e1a;
   --dark-brown: #994d1c;
@@ -16,15 +15,6 @@
   --leafy-green: #6c9a8b; /* For "Available", "Fresh", or vegetarian labels */
   --chili-orange: #ff6f00; /* Eye-catching CTA or hover effect */
 
-=======
-  --light-light-brown: #F5CCA0;
-  --dark-dark-brown: #7B3E1A;
-  --dark-brown: #994D1C;
-  --light-brown: #E48F45;
-  --beige: #DECFA3;
-  --dark-black: #242424;
-  --dark-gray: #333333;
->>>>>>> Stashed changes
   color: var(--dark-dark-brown);
   color-scheme: light dark;
   background-color: #242424;
@@ -158,7 +148,7 @@ span {
   object-fit: cover;
   border-radius: 20px;
 }
-<<<<<<< Updated upstream
+
 
 /* Login / Sign up*/
 .container {
@@ -569,7 +559,7 @@ div span {
   font-size: 40px;
   color: var(--navy);
 }
-=======
+
 .about-page{
   display: flex;
   flex-direction: column;
@@ -578,6 +568,7 @@ div span {
   height: 100%;
   width: 100%;
 }
+/*About Page*/ 
 .about-body{
   background-image: url('https://img.freepik.com/free-photo/restaurant-interior_1127-3394.jpg');
   background-size: cover; /* ensures the image covers the entire area */
@@ -629,4 +620,3 @@ div span {
   font-size: 1.5rem;
 }
 
->>>>>>> Stashed changes
