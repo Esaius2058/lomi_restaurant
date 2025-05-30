@@ -68,8 +68,8 @@ span {
   align-items: center;
   justify-content: center;
   height: 100vh;
+  width: 100%;
 }
-
 .home-page {
   display: flex;
   flex-direction: column;
@@ -78,19 +78,16 @@ span {
   width: 100%;
   background-color: var(--creamy-yellow);
 }
-
 .home-page h1 {
   font-size: 50px;
   font-weight: 700;
   color: var(--dark-dark-brown);
 }
-
 .home-page h2 {
   font-size: 35px;
   font-weight: 480;
   color: var(--dark-brown);
 }
-
 .navbar {
   display: flex;
   flex-direction: row;
@@ -98,7 +95,7 @@ span {
   justify-content: space-between;
   padding: 20px;
   width: 100%;
-  height: 75px;
+  height: 65px;
   background-color: var(--dark-dark-brown);
 }
 
@@ -106,14 +103,12 @@ span {
   width: 80px;
   height: 80px;
 }
-
 .nav-links {
   display: flex;
   gap: 20px;
   font-size: 15px;
   font-weight: 600;
 }
-
 .home-intro-container {
   display: flex;
   flex-direction: column;
@@ -123,7 +118,6 @@ span {
   width: 100%;
   background-color: var(--beige);
 }
-
 .home-intro {
   display: flex;
   justify-content: center;
@@ -137,11 +131,9 @@ span {
   flex-direction: column;
   align-items: center;
 }
-
 .home-intro-text h2 {
   margin-bottom: 20px;
 }
-
 .home-intro-image img {
   width: 300px;
   height: 300px;
@@ -158,7 +150,6 @@ span {
   justify-content: center;
   align-items: center;
 }
-
 .form-box {
   background-color: var(--light-light-brown);
   width: max-content;
@@ -166,30 +157,24 @@ span {
   border-radius: 10px;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
 }
-
 .light .form-box {
   background-color: var(--dark-dark-brown);
 }
-
 .dark .form-box {
   background-color: var(--beige);
 }
-
 .form-box h1 {
   text-align: center;
   margin-bottom: 1rem;
 }
-
 .dark {
   background-color: var(--dark-dark-brown);
   color: black;
 }
-
 .light {
   background-color: var(--beige);
   color: white;
 }
-
 input {
   width: 100%;
   padding: 10px;
@@ -197,16 +182,13 @@ input {
   border-radius: 5px;
   border: 1px solid #ccc;
 }
-
 .password-wrapper {
   position: relative;
 }
-
 .password-field {
   position: relative;
   width: 100%;
 }
-
 .password-field input {
   width: 100%;
   padding-right: 60px;
@@ -214,7 +196,6 @@ input {
   height: 2.5rem;
   font-size: 1rem;
 }
-
 .eye-toggle {
   position: absolute;
   color: white;
@@ -225,7 +206,6 @@ input {
   cursor: pointer;
   font-size: 1rem;
 }
-
 .toggle-theme {
   margin-top: 1rem;
   text-align: center;
@@ -234,65 +214,57 @@ input {
   color: #2196f3;
   text-decoration: none;
 }
-
 .signup-link {
   margin-top: 1rem;
   text-align: center;
   font-size: 0.9rem;
 }
-
 .signup-link a {
   color: var(--dark-brown);
 }
-
 .signup-link a {
   color: var(--dark-brown);
 }
-
 .light .signup-link a {
   color: var(--beige);
 }
-
 .signup-link a:hover {
   color: var(--light-brown);
 }
-
 .error-text {
   color: var(--spicy-red);
   font-size: 0.85rem;
   margin-top: 0px;
 }
 
-/*HOME PAGE*/
+/*MENU PAGE*/
 .menu-page {
   display: flex;
   width: 100%;
-  min-height: 100vh;
   flex-direction: column;
   justify-content: flex-start;
   background-color: var(--beige);
+  overflow: scroll;
 }
-
 .menu-body {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 0px 20px;
+  width: 100%;
+  height: auto;
+  padding: 20px;
 }
-
 .menu-section {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
 }
-
 .menu-section-header {
   border-bottom: 2px solid var(--dark-dark-brown);
   width: 100%;
 }
-
 .menu-section-item {
   display: flex;
   flex-direction: row;
@@ -302,24 +274,20 @@ input {
   gap: 10px;
   padding: 15px;
 }
-
 .menu-section-item img {
   width: 120px;
   height: 120px;
 }
-
 .menu-section-description {
   display: flex;
   align-items: center;
   gap: 20px;
 }
-
 .menu-section-description-text {
   display: flex;
   flex-direction: column;
   gap: 5px;
 }
-
 .menu-section-cta button {
   width: 100px;
   height: 40px;
@@ -547,9 +515,20 @@ div span {
 
 /*ERROR PAGE*/
 .error-page {
-  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
   gap: 60px;
-  background-color: var(--light-gray);
+  background-color: var(--beige);
+  padding: 20px;
+}
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 .error-page h1 {
   font-size: 200px;

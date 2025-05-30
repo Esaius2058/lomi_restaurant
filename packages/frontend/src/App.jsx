@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import { AuthProvider } from "./components/AuthContext";// Adjust path if needed
+import { AuthProvider } from "./context/AuthContext";// Adjust path if needed
 import "./App.css";
 
 function App() {
