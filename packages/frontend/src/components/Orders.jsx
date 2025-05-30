@@ -1,4 +1,4 @@
-import {NavBar} from "./Navbar";
+import { NavBar } from "./Navbar";
 import { useState } from "react";
 
 const Orders = () => {
@@ -9,12 +9,11 @@ const Orders = () => {
   const [paymentMethod, setPaymentMethod] = useState("mpesa");
 
   const paymentMethods = {
-  "mpesa": "/mpesa.png",
-  "visa": "/visa.svg",
-  "mastercard": "/mastercard.svg",
-  "paypal": "/paypal.png",
-};
-
+    mpesa: "/icons/mpesa.svg",
+    visa: "/icons/visa.svg",
+    mastercard: "/icons/mastercard.svg",
+    paypal: "/icons/paypal.png",
+  };
 
   return (
     <div className="orders-page">
