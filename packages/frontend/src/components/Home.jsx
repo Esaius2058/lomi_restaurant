@@ -15,7 +15,7 @@ const HomePage = () => {
             </Link>
           </div>
           <div className="home-intro-image">
-            <img src="/food.jpg" alt="animation" />
+            <img src="/images/food.jpg" alt="animation" />
           </div>
         </div>
       </div>
