@@ -98,7 +98,6 @@ span {
   height: 65px;
   background-color: var(--dark-dark-brown);
 }
-
 .lomi-logo {
   width: 80px;
   height: 80px;
@@ -125,7 +124,6 @@ span {
   text-align: center;
   gap: 100px;
 }
-
 .home-intro-text {
   display: flex;
   flex-direction: column;
@@ -141,7 +139,104 @@ span {
   border-radius: 20px;
 }
 
+/*ORDERS PAGE*/
+/*OrdersPage styles*/
+.orders-page{
+  width: 100%;
+  height: 100%;
+  background: var(--beige);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.orders-content{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  padding-top: 100px;
+  gap: 69px;
+}
+.order-section1{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  gap: 20px;
+  width: 550px;
+  height: 550px;
+  border-radius: 25px;
+  background: var(--golden-brown);
+}
+.order-section1-text{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.order-section1-text h1{
+  color: var(--black);
+  font-feature-settings: 'liga' off, 'clig' off;
+  /* font-family: Inter; */
+  font-size: 35px;
+  font-style: normal;
+  line-height: normal;
+}
+.order-section1-text h2{
+  color: var(--black);
+  font-feature-settings: 'liga' off, 'clig' off;
+  /* font-family: Inter; */
+  font-size: 20px;
+  font-style: normal;
+  line-height: normal;
+}
+.order-section1-separator{
+  width: 100%;
+  height: 1px;
+  background-color: var(--black);
+}
+.order-section1 p{
+  color: var(--dark-dark-brown);
+  font-size: 25px;
+}
+.order-section2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  gap: 20px;
+  width: 400px;
+  height: 550px;
+  border-radius: 25px;
+  background: var(--golden-brown);
+  /* box-sizing: border-box;
+  padding: 20px; */
+}
+.order-section2-text{
+  display: flex;
+  flex-direction: column;
+  align-items: normal;
+}
+.order-section2-separator{
+  width: 100%;
+  height: 1px;
+  background-color: var(--black);
+}
+.order-section2-text h1{
+  color: var(--dark-dark-brown);
+  font-size: 25px;
+}
+.order-section2-text h2{
+  color: var(--dark-dark-brown);
+  font-size: 25px;
+}
+.payment-methods img {
+  width: 90px;
+  height: 30px;
+}
 
+
+/*AUTHENTICATION PAGES*/
 /* Login / Sign up*/
 .container {
   height: 100%;
@@ -287,11 +382,6 @@ input {
   display: flex;
   flex-direction: column;
   gap: 5px;
-}
-.menu-section-cta button {
-  width: 100px;
-  height: 40px;
-  font-size: 12px;
 }
 
 /*DASHBOARD PAGE*/
@@ -539,6 +629,7 @@ div span {
   color: var(--navy);
 }
 
+/*ABOUT PAGE*/
 .about-page{
   display: flex;
   flex-direction: column;
@@ -547,7 +638,6 @@ div span {
   height: 100%;
   width: 100%;
 }
-/*About Page*/ 
 .about-body{
   background-image: url('https://img.freepik.com/free-photo/restaurant-interior_1127-3394.jpg');
   background-size: cover; /* ensures the image covers the entire area */
@@ -566,13 +656,10 @@ div span {
   font-size: 60px;
   font-weight: 500;
   color:(#333333);
-   
 }
 .about-body p{
   font-size: 15px;
   color: var(#333333);
-  
- 
 }
 .signoff {
   margin-top: 2rem;
@@ -598,4 +685,3 @@ div span {
   color: var(#242424);
   font-size: 1.5rem;
 }
-
