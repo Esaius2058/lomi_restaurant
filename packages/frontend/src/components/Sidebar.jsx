@@ -1,3 +1,5 @@
+import { ChartPie, SquareMenu, Logs, Users, TruckElectric } from "lucide-react";
+
 const SideBar = ({ activeButton, setActiveButton }) => {
   const handleButtonClick = (event) => {
     const buttonName = event.currentTarget.name;
@@ -14,7 +16,7 @@ const SideBar = ({ activeButton, setActiveButton }) => {
           name="overview"
           onClick={handleButtonClick}
         >
-          <img src="" alt="overview" className="sidebar-icon" />
+          <ChartPie />
           <span>Overview</span>
         </button>
         <button
@@ -24,7 +26,7 @@ const SideBar = ({ activeButton, setActiveButton }) => {
           name="orders"
           onClick={handleButtonClick}
         >
-          <img src="" alt="orders" className="sidebar-icon" />
+          <Logs />
           <span>Orders</span>
         </button>
         <button
@@ -34,7 +36,7 @@ const SideBar = ({ activeButton, setActiveButton }) => {
           name="menu"
           onClick={handleButtonClick}
         >
-          <img src="" alt="menu" className="sidebar-icon" />
+          <SquareMenu />
           <span>Menu</span>
         </button>
         <button
@@ -44,7 +46,7 @@ const SideBar = ({ activeButton, setActiveButton }) => {
           name="customers"
           onClick={handleButtonClick}
         >
-          <img src="" alt="customers" className="sidebar-icon" />
+          <Users />
           <span>Customers</span>
         </button>
         <button
@@ -54,7 +56,7 @@ const SideBar = ({ activeButton, setActiveButton }) => {
           name="staff"
           onClick={handleButtonClick}
         >
-          <img src="" alt="staff" className="sidebar-icon" />
+          <img src="/icons/staff.svg" alt="staff" className="sidebar-icon" />
           <span>Staff</span>
         </button>
         <button
@@ -64,7 +66,7 @@ const SideBar = ({ activeButton, setActiveButton }) => {
           name="deliveries"
           onClick={handleButtonClick}
         >
-          <img src="" alt="deliveries" className="sidebar-icon" />
+          <TruckElectric />
           <span>Deliveries</span>
         </button>
       </div>
