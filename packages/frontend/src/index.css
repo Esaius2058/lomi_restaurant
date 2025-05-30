@@ -648,31 +648,44 @@ div span {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  height: 100%;
   width: 100%;
+  min-height: 100vh;
 }
 .about-body{
-  background-image: url('https://img.freepik.com/free-photo/restaurant-interior_1127-3394.jpg');
-  background-size: cover; /* ensures the image covers the entire area */
-  background-repeat: no-repeat; /* prevents repeating */
-  background-position: center; /* centers the image */
-}
-
-
-.about-body{
+  background-image: url("/images/about-background.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center; 
+  width: 100%;
   display: flex;
-  flex-direction: column;
   padding: 15px;
   align-items: center;
+  justify-content: center;
+}
+.about-content{
+  /*background-color: rgba(123, 62, 26, 0.5);*/
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--creamy-yellow);
+  width: 95%;
+  height: 100%;
+  border-radius: 20px;
+}
+.about-content div{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  font-size: 22px;
+  padding: 15px;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
 }
 .about-body h1{
   font-size: 60px;
   font-weight: 500;
-  color:(#333333);
-}
-.about-body p{
-  font-size: 15px;
-  color: var(#333333);
 }
 .signoff {
   margin-top: 2rem;
@@ -683,18 +696,15 @@ div span {
   max-width: 900px;
 }
 .signoff .greeting {
-  color:var(#242424);
   font-size: 0.92rem;
   margin-bottom: 0.5rem;
 }
 .signoff .team-name {
   font-weight: bold;
   font-size: 2.1rem;
-  color: #242424;
   margin-bottom: 0.25rem;
 }
 .signoff .tagline {
   font-style: italic;
-  color: var(#242424);
   font-size: 1.5rem;
 }
