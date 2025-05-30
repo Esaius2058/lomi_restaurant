@@ -98,7 +98,6 @@ span {
   height: 65px;
   background-color: var(--dark-dark-brown);
 }
-
 .lomi-logo {
   width: 80px;
   height: 80px;
@@ -125,7 +124,6 @@ span {
   text-align: center;
   gap: 100px;
 }
-
 .home-intro-text {
   display: flex;
   flex-direction: column;
@@ -385,11 +383,6 @@ input {
   flex-direction: column;
   gap: 5px;
 }
-.menu-section-cta button {
-  width: 100px;
-  height: 40px;
-  font-size: 12px;
-}
 
 /*DASHBOARD PAGE*/
 /*SIDEBAR*/
@@ -634,4 +627,61 @@ div span {
 .error-page h2 {
   font-size: 40px;
   color: var(--navy);
+}
+
+/*ABOUT PAGE*/
+.about-page{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100%;
+  width: 100%;
+}
+.about-body{
+  background-image: url('https://img.freepik.com/free-photo/restaurant-interior_1127-3394.jpg');
+  background-size: cover; /* ensures the image covers the entire area */
+  background-repeat: no-repeat; /* prevents repeating */
+  background-position: center; /* centers the image */
+}
+
+
+.about-body{
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  align-items: center;
+}
+.about-body h1{
+  font-size: 60px;
+  font-weight: 500;
+  color:(#333333);
+}
+.about-body p{
+  font-size: 15px;
+  color: var(#333333);
+}
+.signoff {
+  margin-top: 2rem;
+  padding-top: 3rem;
+  border-top: 1px solid var(--dark-dark-brown);
+  color: var(#242424);
+  text-align: center;
+  max-width: 900px;
+}
+.signoff .greeting {
+  color:var(#242424);
+  font-size: 0.92rem;
+  margin-bottom: 0.5rem;
+}
+.signoff .team-name {
+  font-weight: bold;
+  font-size: 2.1rem;
+  color: #242424;
+  margin-bottom: 0.25rem;
+}
+.signoff .tagline {
+  font-style: italic;
+  color: var(#242424);
+  font-size: 1.5rem;
 }
