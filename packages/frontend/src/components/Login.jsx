@@ -3,13 +3,15 @@ import { useNavigate, Link } from "react-router-dom";
 import "../index.css";
 
 const Login = () => {
-    // State for email, phone and password
+    // State for email and password
     // initializing variables email, phone, password etc to store input
     // useState("") initializes the variables to an empty string
-    const [identifier, setIdentifier] = useState(""); // email or phone
+    const [email, setEmail] = useState(""); // email
     const [password, setPassword] = useState("");     // password input
     const [showPassword, setShowPassword] = useState(false); // toggle for password visibility
     const [error, setError] = useState("");    // error message 
+    const [emailError, setEmailError] = useState("");    // error message 
+    const [passwordError, setPasswordError] = useState("");    // error message 
     const [theme, setTheme] = useState(localStorage.getItem("theme") || "dark");
     const navigate = useNavigate();            // redirect function
 
@@ -18,7 +20,7 @@ const Login = () => {
     useEffect(() => {
         const token = localStorage.getItem("token");
         if (token) {
-            navigate("/home")
+            navigate("/")
         }
     }, [navigate]);
 
@@ -34,13 +36,17 @@ const Login = () => {
         e.preventDefault();   // Prevents the default reloading
         setError("");  // Clears previous errors before new validation
 
-        // Check if at least email or phone is provided
-        if (!identifier || !password) {
-            setError("Please enter your email or phone number, and password.");
+        // Check if at least email is provided
+        if (!email) {
+            setEmailError("Please enter your email.");
+            return;
+        }
+        if (!password) {
+            setPasswordError("Please enter your password");
             return;
         }
 
-        const loginData = {password, identifier};
+        const loginData = {password, email};
 
         try {
             const response = await fetch("https://your-api.com/api/login", {
@@ -74,13 +80,20 @@ const Login = () => {
             <form onSubmit={handleSubmit} className="form-box">
                 <h1>Login</h1>
                 <div>
-                    <label>Email or Phone:</label>
+                    <label>Email:</label>
                     <input
                         type="text"
-                        value={identifier}
-                        onChange={(e) => setIdentifier(e.target.value)}
-                        placeholder="Email or Phone"
+                        value={email}
+                        onChange={(e) => { setEmail(e.target.value)
+                        if (!e.target.value) {
+                            setEmailError("Please enter your email.");
+                          } else {
+                            setEmailError("");
+                          }
+                        }}
+                        placeholder="example@gmail.com"
                     />
+                    {emailError && <div className="error-text">{emailError}</div>}
                 </div>
                 <div className="password-wrapper">
                     <label>Password:</label>
@@ -88,10 +101,16 @@ const Login = () => {
                         <input
                             type={showPassword ? "text" : "password"}
                             value={password}
-                            onChange={(e) => setPassword(e.target.value)}
+                            onChange={(e) => {setPassword(e.target.value)
+                              if (!e.target.value) {
+                                setPasswordError("Please enter your password.");
+                              } else {
+                                setPasswordError("");
+                              }
+                            }}
                             placeholder="Password"
-                            required
                         />
+                        {passwordError && <div className="error-text">{passwordError}</div>}
                         <span
                         className="eye-toggle"
                         onClick={() => setShowPassword(!showPassword)}
@@ -101,7 +120,9 @@ const Login = () => {
                     </div>
                 </div>
 
-                <button type="submit">Login</button>
+                <div className="button-wrapper">
+                    <button type="submit">Login</button>
+                </div>
                 <div className="toggle-theme" onClick={toggleTheme}>
                     Switch to {theme === "dark" ? "Light" : "Dark"} Mode.
                 </div>
