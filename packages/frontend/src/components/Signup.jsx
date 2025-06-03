@@ -1,29 +1,3 @@
-/*const SignUp = () => {
-
-  return (
-    <div className="signup">
-      <h1>Sign Up</h1>
-      <form>
-        <div>
-          <label htmlFor="username">Username:</label>
-          <input type="text" id="username" name="username" required />
-        </div>
-        <div>
-          <label htmlFor="email">Email:</label>
-          <input type="email" id="email" name="email" required />
-        </div>
-        <div>
-          <label htmlFor="password">Password:</label>
-          <input type="password" id="password" name="password" required />
-        </div>
-        <button type="submit">Sign Up</button>
-      </form>
-    </div>
-  );
-}
-
-export default SignUp;*/
-
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "../index.css";
@@ -32,16 +6,17 @@ const SignUp = () => {
     // State for email, phone and password
     // initializing variables email, phone, password etc to store input
     // useState("") initializes the variables to an empty string
-    const [identifier, setIdentifier] = useState(""); // email or phone
+    const [email, setEmail] = useState(""); // email or phone
     const [name, setName] = useState(""); // name
     const [password, setPassword] = useState("");     // password input
     const [confPassword, setConfPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false); // toggle for password visibility
     const [showConfPassword, setShowConfPassword] = useState(false); // toggle for password visibility
-    const [identifierError, setIdentifierError] = useState("");
+    const [emailError, setEmailError] = useState("");
     const [passwordError, setPasswordError] = useState("");
     const [confPasswordError, setConfPasswordError] = useState("");
     const [nameError, setNameError] = useState("");
+    const [error, setError] = useState("");
 
     const [theme, setTheme] = useState(localStorage.getItem("theme") || "dark");
     const navigate = useNavigate();            // redirect function
@@ -68,7 +43,7 @@ const SignUp = () => {
         setError("");  // Clears previous errors before new validation
 
         // Check if at least email or phone is provided
-        if (!identifier) {
+        if (!email) {
             setError("Please enter your email or phone number.");
             return;
         }
@@ -88,7 +63,7 @@ const SignUp = () => {
             setError("Passwords do not match.")
         }
 
-        /*const loginData = {password, identifier};
+        /*const loginData = {password, email};
 
         try {
             const response = await fetch("https://your-api.com/api/login", {
@@ -138,20 +113,20 @@ const SignUp = () => {
                     {nameError && <div className="error-text">{nameError}</div>}
                 </div>
                 <div>
-                    <label>Email or Phone:</label>
+                    <label>Email:</label>
                     <input
                         type="text"
-                        value={identifier}
-                        onChange={(e) => { setIdentifier(e.target.value)
+                        value={email}
+                        onChange={(e) => { setEmail(e.target.value)
                         if (!e.target.value) {
-                            setIdentifierError("Please enter your phone or email.");
+                            setEmailError("Please enter your phone or email.");
                           } else {
-                            setIdentifierError("");
+                            setEmailError("");
                           }
                         }}
-                        placeholder="Email or Phone"
+                        placeholder="example@gmail.com"
                     />
-                    {identifierError && <div className="error-text">{identifierError}</div>}
+                    {emailError && <div className="error-text">{emailError}</div>}
                 </div>
                 <div className="password-wrapper">
                     <label>Password:</label>
@@ -167,7 +142,6 @@ const SignUp = () => {
                               }
                             }}
                             placeholder="Password"
-                            required
                         />
                         {passwordError && <div className="error-text">{passwordError}</div>}
                         <span
@@ -197,7 +171,6 @@ const SignUp = () => {
                             }}
 
                             placeholder="Confirm Password"
-                            required
                         />
                         {confPasswordError && <div className="error-text">{confPasswordError}</div>}
                         <span
