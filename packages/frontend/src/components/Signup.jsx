@@ -62,34 +62,6 @@ const SignUp = () => {
         if (confPassword !== password) {
             setError("Passwords do not match.")
         }
-
-        /*const loginData = {password, email};
-
-        try {
-            const response = await fetch("https://your-api.com/api/login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(loginData),
-            });
-
-            const data = await response.json();
-
-            if (response.ok) {
-                // Save token to localStorage
-                localStorage.setItem("token", data.token);
-                localStorage.setItem("token_expiry", Date.now() + 3600 * 1000);
-                navigate("/home")
-            } else {
-                console.error(data.message)
-                setError("Login failed");
-
-            }
-        } catch (err) {
-            console.error(err)
-            setError("Something went wrong :(");
-        }*/
     };
 
     return (
