@@ -91,7 +91,7 @@ const SignUp = () => {
                         value={email}
                         onChange={(e) => { setEmail(e.target.value)
                         if (!e.target.value) {
-                            setEmailError("Please enter your phone or email.");
+                            setEmailError("Please enter your email.");
                           } else {
                             setEmailError("");
                           }
@@ -154,8 +154,10 @@ const SignUp = () => {
                     </div>
                 </div>
                 
-
-                <button type="submit">Sign up</button>
+                <div className="button-wrapper">
+                    <button type="submit">Sign up</button>
+                </div>
+                
                 <div className="toggle-theme" onClick={toggleTheme}>
                     Switch to {theme === "dark" ? "Light" : "Dark"} Mode.
                 </div>
