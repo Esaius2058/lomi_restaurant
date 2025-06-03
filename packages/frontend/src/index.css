@@ -283,6 +283,10 @@ span {
   text-align: center;
   margin-bottom: 1rem;
 }
+.form-box .button-wrapper {
+  display: flex;
+  justify-content: center;
+}
 .dark {
   background-color: var(--dark-dark-brown);
   color: black;
