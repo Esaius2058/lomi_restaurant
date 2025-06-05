@@ -8,6 +8,7 @@
   --dark-brown: #994d1c;
   --light-brown: #e48f45;
   --beige: #decfa3;
+  --golden-brown: #C5a04a;
   --creamy-yellow: #f9e4b7;
   --light-cream: #fff8e7; /* Soft background */
   --warm-gray: #afa08f; /* For secondary text */
@@ -179,7 +180,7 @@ span {
   width: 550px;
   height: 550px;
   border-radius: 25px;
-  background: var(--golden-brown);
+  background-color: var(--);
 }
 .order-section1-text{
   display: flex;
