@@ -27,14 +27,14 @@ router.post("/logout", ensureAuthenticated, (req, res) => {
 //router.use(ensureAuthenticated);
 
 //Menu Routes
-router.get("/menu", ensureAuthenticated, ensureAdmin, getAllFoodItems);
-router.get("/menuitem/:id", ensureAuthenticated, getFoodById);
-router.put("/menuitem/:id", ensureAuthenticated, updateFood);
-router.delete("/menuitem/:id", ensureAuthenticated, ensureAdmin, deleteFood);
-router.post("/menuitem/new", ensureAuthenticated, ensureAdmin, createFood);
-router.post("/menuitem/:id", ensureAuthenticated, checkAvailabality);
-router.post("/menuitem/image/:id", ensureAuthenticated, ensureAdmin, storeImage);
-router.post("/menu/:category", filterByCategory);
+router.get("/menu-items", ensureAuthenticated, ensureAdmin, getAllFoodItems);
+router.get("/menu-items/:id", ensureAuthenticated, getFoodById);
+router.put("/menu-items/:id", ensureAuthenticated, updateFood);
+router.delete("/menu-items/:id", ensureAuthenticated, ensureAdmin, deleteFood);
+router.post("/menu-items/new", ensureAuthenticated, ensureAdmin, createFood);
+router.post("/menu-items/:id", ensureAuthenticated, checkAvailabality);
+router.post("/menu-items/image/:id", ensureAuthenticated, ensureAdmin, storeImage);
+router.post("/menu-items/:category", filterByCategory);
 
 //Order Routes
 router.get("/orders", ensureAdmin, getAllOrders);
@@ -45,13 +45,13 @@ router.delete("/order/:id", deleteOrder);
 router.post("/order/new", ensureAuthenticated, createOrder);
 
 //Order Item Routes
-router.get("/orderitems", ensureAdmin, getAllOrderItems);
-router.get("/orderitem/:id", getOrderItemById);
-router.get("/orderitem/food/:id", ensureAdmin, getOrderItemByFoodId);
-router.get("/orderitem/order/:id", ensureAdmin, getOrderItemsByOrderId);
-router.post("/orderitem/new", createOrderItem);
-router.put("/orderitem/:id", updateOrderItem);
-router.delete("/orderitem/:id", deleteOrderItem);
-router.delete("/orderitems", ensureAdmin, deleteAllOrderItems);
+router.get("/order-items", ensureAdmin, getAllOrderItems);
+router.get("/order-items/:id", getOrderItemById);
+router.get("/order-items/food/:id", ensureAdmin, getOrderItemByFoodId);
+router.get("/order-items/order/:id", ensureAdmin, getOrderItemsByOrderId);
+router.post("/order-items/new", createOrderItem);
+router.put("/order-items/:id", updateOrderItem);
+router.delete("/order-items/:id", deleteOrderItem);
+router.delete("/order-items", ensureAdmin, deleteAllOrderItems);
 
 export default router;
