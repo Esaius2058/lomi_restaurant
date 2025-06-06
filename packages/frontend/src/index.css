@@ -768,6 +768,49 @@ div span {
 }
 
 
+/*Footer*/
+.footer {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin: 1rem 0 0;
+  align-items: center;
+  width: 100%;
+  background-color: var(--dark-dark-brown);
+  color: var(--light-cream);
+  font-size: 14px;
+}
+.footer p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--light-cream);
+  font-size: 14px;
+  font-weight: 400;
+  text-align: center;
+  width: 100%;
+  margin: 0;
+  padding: 0px;
+}
+.footer a {
+  color: var(--light-cream);  
+  text-decoration: blue;
+  }
+  .footer-icons {
+    color: var(--light-cream);
+    font-size: 1.5rem;
+    transition: color 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+  }
+.footer-icons li a:hover {
+  color: var(--light-brown);
+}
+
+
+
 /*USER AVATAR*/
 .user-avatar-container {
   position: relative;

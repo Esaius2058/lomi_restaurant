@@ -1,4 +1,5 @@
 import { NavBar } from "./Navbar";
+import Footer from "./Footer";
 
 const AboutPage = () => {
   return (
@@ -55,6 +56,7 @@ const AboutPage = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
