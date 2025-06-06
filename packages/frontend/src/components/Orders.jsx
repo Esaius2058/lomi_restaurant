@@ -1,5 +1,6 @@
 import { NavBar } from "./Navbar";
 import { useState, useEffect } from "react";
+import { Trash2 } from "lucide-react";
 
 const Orders = () => {
   const [orderId] = useState("gshhjKJ");
@@ -17,9 +18,10 @@ const Orders = () => {
 
   const paymentMethods = {
     mpesa: "/icons/mpesa.svg",
-    visa: "/icons/visa.svg",
-    mastercard: "/icons/mastercard.svg",
-    paypal: "/icons/paypal.png",
+    airtelmoney: "/icons/airtelmoney.svg",
+    paypal: "/icons/paypal.svg",
+    // visa: "/icons/visa.svg",
+    // mastercard: "/icons/mastercard.svg",
   };
 
   // Automatically calculate subtotal and VAT on render/update
@@ -32,13 +34,20 @@ const Orders = () => {
     setVat(Math.round(total * 0.16));
   }, [orderedItems]);
 
+
+  const handleClearOrder = () => {
+    setOrderedItems([]);
+    setSubtotal(0);
+    setVat(0);
+  };
+
   return (
     <div className="orders-page">
       <NavBar />
       <div className="orders-content">
         <div className="order-section1">
           <div className="order-section1-text">
-            <h1>Order ID: {orderId}</h1>
+            <h2>Order ID: {orderId}</h2>
             <p className="order-date">Order date: {orderDate}</p>
             <div className="separator"></div>
 
@@ -55,7 +64,16 @@ const Orders = () => {
         </div>
 
         <div className="order-summary">
+        <div className="order-summary-header">
           <h2>Order Summary</h2>
+          <button
+            onClick={handleClearOrder}
+            className="clear-order-btn"
+            title="Clear Order"
+          >
+            <Trash2 size={20} />
+          </button>
+            </div>
           <div className="summary-details">
             <div className="summary-row">
               <span>Subtotal</span>
