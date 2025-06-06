@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { ShoppingCartIcon, CircleUser } from "lucide-react";
+import UserAvatar from "./UserAvatar";
 
 function NavBar() {
   return (
@@ -54,10 +55,10 @@ function MenuNavbar() {
       </div>
       <div className="nav-links">
         <Link to="/menu/orders">
-          <ShoppingCartIcon size={30} />
+          <ShoppingCartIcon size={35} />
         </Link>
         <Link to="">
-          <CircleUser size={30} />
+          <UserAvatar />
         </Link>
       </div>
     </nav>

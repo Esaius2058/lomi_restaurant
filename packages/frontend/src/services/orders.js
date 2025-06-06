@@ -1,4 +1,4 @@
-const api = process.meta.VITE_API_URL || "http://localhost:3000/api";
+const api = "http://localhost:3000/api";
 
 export async function getOrders() {
   try {
