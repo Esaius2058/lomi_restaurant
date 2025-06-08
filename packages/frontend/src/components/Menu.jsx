@@ -37,7 +37,7 @@ const MenuPage = () => {
                     </div>
                     <div className="menu-section-item">
                         <div className="menu-section-description">
-                            <img src="/images/pilau special.png" className="border-radius" alt="Pilau Special image" />
+                            <img src="/images/pilau_special.png" className="border-radius" alt="Pilau Special image" />
                             <div className="menu-section-description-text">
                                 <h3>Pilau Special</h3>
                                 <p>Served with kachumbari</p>
