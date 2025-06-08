@@ -42,26 +42,46 @@ const SignUp = () => {
         e.preventDefault();   // Prevents the default reloading
         setError("");  // Clears previous errors before new validation
 
-        // Check if at least email or phone is provided
-        if (!email) {
-            setError("Please enter your email or phone number.");
-            return;
-        }
-        if (!password) {
-            setError("Please enter your password.");
-            return;
-        }
-        if (!confPassword) {
-            setError("Please confirm your password.");
-            return;
-        }
-        if (!name) {
-            setError("Please enter your name.");
-            return;
-        }
-        if (confPassword !== password) {
-            setError("Passwords do not match.")
-        }
+        const validateForm = () => {
+            let valid = true;
+
+            // Clear previous errors
+            setEmailError("");
+            setPasswordError("");
+            setConfPasswordError("");
+            setNameError("");
+            setError("");
+
+            if (!email) {
+                setEmailError("Please enter your email.");
+                valid = false;
+            }
+
+            if (!password) {
+                setPasswordError("Please enter your password.");
+                valid = false;
+            }
+
+            if (!confPassword) {
+                setConfPasswordError("Please confirm your password.");
+                valid = false;
+            }
+
+            if (!name) {
+                setNameError("Please enter your name.");
+                valid = false;
+            }
+
+            if (password && confPassword && password !== confPassword) {
+                setError("Passwords do not match.");
+                valid = false;
+            }
+
+            return valid;
+            };
+
+        if (!validateForm()) return;
+        navigate("/")
     };
 
     return (
@@ -152,6 +172,7 @@ const SignUp = () => {
                             {showConfPassword ? "hide" : "show"} 
                         </span>
                     </div>
+                    {error && <div className="error-text">{error}</div>}
                 </div>
                 
                 <div className="button-wrapper">

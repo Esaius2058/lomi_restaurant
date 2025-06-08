@@ -34,17 +34,24 @@ const Login = () => {
     // marked "async" because backend is "await"ing 
     const handleSubmit = async (e) => {
         e.preventDefault();   // Prevents the default reloading
-        setError("");  // Clears previous errors before new validation
+        const validateForm = () => {
+            let valid = true;
+            setEmailError("");  // Clears previous errors before new validation
+            setPasswordError("");  
 
-        // Check if at least email is provided
-        if (!email) {
-            setEmailError("Please enter your email.");
-            return;
-        }
-        if (!password) {
-            setPasswordError("Please enter your password");
-            return;
-        }
+            if (!email) {
+                setEmailError("Please enter your email.");
+                valid = false;
+            }
+            if (!password) {
+                setPasswordError("Please enter your password.");
+                valid = false;
+            }
+
+            return valid;
+        };
+
+        if (!validateForm()) return;
 
         const loginData = {password, email};
 
@@ -73,6 +80,7 @@ const Login = () => {
             console.error(err)
             setError("Something went wrong :(");
         }
+        navigate("/")
     };
 
     return (
