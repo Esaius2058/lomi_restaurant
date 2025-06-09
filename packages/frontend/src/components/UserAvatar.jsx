@@ -145,19 +145,17 @@ export function UserAvatar({ name, email, avatarUrl = "", setNotification }) {
           {passwordToggle == false ? (
             <div className="settings-options">
               <button
-                className="dropdown-item"
                 onClick={() => setPasswordToggle(true)}
               >
                 Change Password
               </button>
               <button
-                className="dropdown-item"
                 type="button"
                 onClick={handleLogout}
               >
                 Log Out
               </button>
-              <button className="dropdown-item" onClick={handleDeleteProfile}>
+              <button onClick={handleDeleteProfile}>
                 Delete Account
               </button>
             </div>

@@ -362,11 +362,19 @@ span {
   color: white;
 }
 input {
-  width: 100%;
+  width: 80%;
   padding: 10px;
   margin-bottom: 1rem;
+  border: 2px solid var(--dark-dark-brown);
   border-radius: 5px;
-  border: 1px solid #ccc;
+  background-color: var(--beige);
+  color: var(--dark-dark-brown);
+  font-size: medium;
+}
+form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .password-wrapper {
   position: relative;
@@ -892,11 +900,11 @@ div span {
 .profile-name {
   display: block;
   font-weight: 600;
-  font-size: 14px;
+  font-size: medium;
 }
 .profile-email {
   display: block;
-  font-size: 12px;
+  font-size: small;
   color: inherit;
   margin-top: 2px;
 }
@@ -905,6 +913,10 @@ div span {
   border: none;
   height: 1px;
   background-color: var(--golden-brown);
+}
+.button-div{
+  display: flex;
+  gap: 5px;
 }
 .dropdown-item {
   width: 50%;
@@ -917,7 +929,7 @@ div span {
   transition: background 0.2s ease;
 }
 .dropdown-item:hover {
-  background-color: var(--light-brown);
+  color: var(--light-light-brown);
 }
 .settings-options{
   display: flex;
