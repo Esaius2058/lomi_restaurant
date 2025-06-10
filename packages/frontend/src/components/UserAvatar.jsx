@@ -180,13 +180,12 @@ export function UserAvatar({ avatarUrl = "", setNotification }) {
                 Update profile
               </button>
               <button
-                className="dropdown-item"
                 type="button"
                 onClick={handleLogout}
               >
                 Log Out
               </button>
-              <button className="dropdown-item" onClick={handleDeleteProfile}>
+              <button onClick={handleDeleteProfile}>
                 Delete Account
               </button>
             </div>
