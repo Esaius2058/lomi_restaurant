@@ -1,10 +1,13 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
 import { UserCircle } from "lucide-react";
+import { updateUserApi, deleteUserProfile, logout } from "../services/auth";
+import { useAuth } from "../context/AuthContext";
 
-export function UserAvatar({ name, email, avatarUrl = "", setNotification }) {
+export function UserAvatar({ avatarUrl = "", setNotification }) {
+  const { user } = useAuth();
   const [open, setOpen] = useState(false);
-  const [passwordToggle, setPasswordToggle] = useState(false);
+  const [updateUserToggle, setUpdateUserToggle] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const menuRef = useRef(null);
 
@@ -20,46 +23,42 @@ export function UserAvatar({ name, email, avatarUrl = "", setNotification }) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const api = import.meta.env.VITE_BACKEND_API_URL;
-    const logout = () => {}
+  //const api = import.meta.env.VITE_BACKEND_API_URL;
+  //const logout = () => {}
   const handleLogout = async () => {
-    try {
-      const res = await fetch(`${api}/logout`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
 
-      logout();
+    const result = await logout();
 
-      if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.message || "Logout failed");
-      }
-    } catch (error) {
-      console.error("Logout failed:", error);
-      // Handle error (e.g., show a notification)
-      setNotification({
-        message: "Logout failed",
-        description: error.message,
-        type: "error",
-      });
-    } finally {
-      // redirect the user to login
+    if (result.success) {
       window.location.href = "/auth/login";
+    } else {
+        setNotification({
+        message: "Logout failed",
+        description: result.message,
+        type: "error",
+        });
     }
   };
 
-  const passwordRef = useRef(null);
-  const handlePasswordChange = async (e) => {
+  const profileRef = useRef(null);
+  useEffect(() => {
+    if (profileRef.current) {
+      console.log("Form element:", profileRef.current); // Verify ref binding
+      profileRef.current.addEventListener("submit", handleUserProfileChange);
+      return () => profileRef.current?.removeEventListener("submit", handleUserProfileChange);
+    }
+  }, []);
+  const handleUserProfileChange = async (e) => {
     e.preventDefault();
+    console.log("submit triggered");
 
-    const form = passwordRef.current;
+    const form = profileRef.current;
     if (!form) return;
 
     try {
       const formData = new FormData(form);
+      const name = formData.get("name") || user.name;
+      const email = formData.get("email") || user.email;
       const oldPassword = formData.get("oldpassword");
       const newPassword = formData.get("newpassword");
       const confirmNewPassword = formData.get("confirmpassword");
@@ -68,33 +67,42 @@ export function UserAvatar({ name, email, avatarUrl = "", setNotification }) {
         throw new Error("New password and confirm password do not match.");
       }
 
-      const update = await updatePassword(oldPassword, newPassword);
+      const updateData = ({
+        name: name,
+        email: email,
+        oldpassword: oldPassword,
+        newpassword: newPassword
+      })
+      const update = await updateUserApi(updateData);
 
-      if (!update) {
-        throw new Error("No response from server");
+      if (update.success) {
+        setNotification({
+          message: "User profile updated successfully!",
+          description: update.message,
+          type: "success",
+        });
+        //throw new Error("No response from server");
       } else {
         setNotification({
-          message: update.message || "Password updated successfully!",
-          type: "success",
+          message: "Something went wrong! :(",
+          description: update.message,
+          type: "error",
         });
       }
 
-      if (update.error) {
-        throw new Error(update.error);
-      }
-
-      setPasswordToggle(false);
+      setUpdateUserToggle(false);
       form.reset();
     } catch (error) {
-      console.error("Error changing password: ", error);
+      console.error("Error updating user profile: ", error);
       setNotification({
-        message: "Error changing password.",
+        message: "Error updating your profile.",
         type: "error",
         description: error.message,
       });
     }
   };
 
+  const delref = useRef(null)
   const handleDeleteProfile = async () => {
     const flag = confirm(
       "Are you sure you want to delete your account? This action cannot be undone."
@@ -103,14 +111,35 @@ export function UserAvatar({ name, email, avatarUrl = "", setNotification }) {
     if (!flag) {
       return;
     }
+    
+    const form = delref.current;
+    
+    if (!password) {
+      return;
+    }
+
 
     try {
-      const deleteResponse = await deleteUserProfile();
+      const formData = new FormData(form)
+      const password = formData.get("password")
 
-      if (!deleteResponse) {
-        throw new Error(deleteResponse.message || "Failed to delete account");
-      } else {
+      const deleteResponse = await deleteUserProfile(password);
+
+      if (deleteResponse.success) {
+        //throw new Error(deleteResponse.message || "Failed to delete account");
+        setNotification({
+          message: "User profile deleted successfully!",
+          description: deleteResponse.message,
+          type: "success",
+        });
         window.location.href = "/auth/login";
+      } else {
+        console.error("Error deleting account:", error);
+        setNotification({
+          message: "Failed to delete account. Try again.",
+          description: deleteResponse.message,
+          type: "error",
+        });
       }
     } catch (error) {
         console.error("Error deleting account:", error);
@@ -136,19 +165,19 @@ export function UserAvatar({ name, email, avatarUrl = "", setNotification }) {
       {open && (
         <div className="dropdown-menu">
           <div className="profile-info">
-            <span className="profile-name">{name || "John Doe"}</span>
+            <span className="profile-name">{user.name || "Guest"}</span>
             <span className="profile-email">
-              {email || "john345@gmail.com"}
+              {user.email || "No email"}
             </span>
           </div>
           <hr className="divider" />
-          {passwordToggle == false ? (
+          {updateUserToggle == false ? (
             <div className="settings-options">
               <button
                 className="dropdown-item"
-                onClick={() => setPasswordToggle(true)}
+                onClick={() => setUpdateUserToggle(true)}
               >
-                Change Password
+                Update profile
               </button>
               <button
                 className="dropdown-item"
@@ -163,35 +192,47 @@ export function UserAvatar({ name, email, avatarUrl = "", setNotification }) {
             </div>
           ) : (
             <div className="password-change">
-              <form onSubmit={handlePasswordChange} ref={passwordRef}>
+              <form onSubmit={handleUserProfileChange} ref={profileRef}>
                 <input
                   type="text"
+                  name="name"
+                  id="name"
+                  placeholder="Your name"
+                />
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  placeholder="Your email"
+                />
+                <input
+                  type="password"
                   name="oldpassword"
                   id="old-password"
                   placeholder="old password"
                   required
                 />
                 <input
-                  type="text"
+                  type="password"
                   name="newpassword"
                   id="new-password"
                   placeholder="new password"
                   required
                 />
                 <input
-                  type="text"
+                  type="password"
                   name="confirmpassword"
                   id="confirm-password"
                   placeholder="confirm new password"
                   required
                 />
                 <div className="button-div">
-                  <button className="primary-btn" type="submit">
-                    Change Password
+                  <button type="submit" className="primary-btn">
+                    Update profile
                   </button>
                   <button
                     className="secondary-btn"
-                    onClick={() => setPasswordToggle(false)}
+                    onClick={() => setUpdateUserToggle(false)}
                   >
                     Cancel
                   </button>
