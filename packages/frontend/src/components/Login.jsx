@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "../index.css";
+//import { LoginApi } from "../services/auth";
+import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
     // State for email and password
@@ -14,7 +16,7 @@ const Login = () => {
     const [passwordError, setPasswordError] = useState("");    // error message 
     const [theme, setTheme] = useState(localStorage.getItem("theme") || "dark");
     const navigate = useNavigate();            // redirect function
-
+    const { login } = useAuth()
 
     // Check if already logged in
     useEffect(() => {
@@ -55,32 +57,13 @@ const Login = () => {
 
         const loginData = {password, email};
 
-        try {
-            const response = await fetch("https://your-api.com/api/login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(loginData),
-            });
+        const result = await login(loginData);
 
-            const data = await response.json();
-
-            if (response.ok) {
-                // Save token to localStorage
-                localStorage.setItem("token", data.token);
-                localStorage.setItem("token_expiry", Date.now() + 3600 * 1000);
-                navigate("/home")
-            } else {
-                console.error(data.message)
-                setError("Login failed");
-
-            }
-        } catch (err) {
-            console.error(err)
-            setError("Something went wrong :(");
+        if (result.success) {
+            navigate("/");
+        } else {
+            setError(result.message);
         }
-        navigate("/")
     };
 
     return (
@@ -126,6 +109,7 @@ const Login = () => {
                             {showPassword ? "hide" : "show"} 
                         </span>
                     </div>
+                    {error && <div className="error-text">{error}</div>}
                 </div>
 
                 <div className="button-wrapper">

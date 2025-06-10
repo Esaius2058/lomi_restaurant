@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "../index.css";
+//import { SignupApi } from "../services/auth";
+import { useAuth } from "../context/AuthContext";
 
 const SignUp = () => {
     // State for email, phone and password
@@ -20,7 +22,7 @@ const SignUp = () => {
 
     const [theme, setTheme] = useState(localStorage.getItem("theme") || "dark");
     const navigate = useNavigate();            // redirect function
-
+    const { signup } = useAuth();
 
     // Check if already logged in
     useEffect(() => {
@@ -73,7 +75,7 @@ const SignUp = () => {
             }
 
             if (password && confPassword && password !== confPassword) {
-                setError("Passwords do not match.");
+                setConfPasswordError("Passwords do not match.");
                 valid = false;
             }
 
@@ -81,15 +83,22 @@ const SignUp = () => {
             };
 
         if (!validateForm()) return;
-        navigate("/")
+        
+        const signUpData = { name, email, password };
+        
+        const result = await signup(signUpData);
+        if (result.success) {
+            //setAuthState({user: result.user});
+            navigate("/");
+        } else {
+            setError(result.message)
+        }
     };
 
     return (
         <div className={`container ${theme}`}>
             <form onSubmit={handleSubmit} className="form-box">
                 <h1>Sign Up</h1>
-                <div>
-                    <label>Name:</label>
                     <input
                         type="text"
                         value={name}
@@ -103,11 +112,9 @@ const SignUp = () => {
                         placeholder="John Doe"
                     />
                     {nameError && <div className="error-text">{nameError}</div>}
-                </div>
                 <div>
-                    <label>Email:</label>
                     <input
-                        type="text"
+                        type="email"
                         value={email}
                         onChange={(e) => { setEmail(e.target.value)
                         if (!e.target.value) {
@@ -121,7 +128,6 @@ const SignUp = () => {
                     {emailError && <div className="error-text">{emailError}</div>}
                 </div>
                 <div className="password-wrapper">
-                    <label>Password:</label>
                     <div className="password-field">
                         <input
                             type={showPassword ? "text" : "password"}
@@ -145,7 +151,6 @@ const SignUp = () => {
                     </div>
                 </div>
                 <div className="password-wrapper">
-                    <label>Confirm Password:</label>
                     <div className="password-field">
                         <input
                             type={showConfPassword ? "text" : "password"}
