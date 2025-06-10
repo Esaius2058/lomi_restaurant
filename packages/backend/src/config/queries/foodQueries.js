@@ -66,7 +66,7 @@ export async function handleFilterByCategory(category) {
     return foodItems;
 }
 
-export async function handleMarkAvailability(id) {
+export async function handleMarkAvailability(id, availability) {
     const foodItem = await prisma.food.update({
         where: {
             id,
@@ -75,7 +75,7 @@ export async function handleMarkAvailability(id) {
             availability,
         },
     });
-    return foodItem;
+    return foodItem.availability;
 }
 
 export async function handleGetFoodItem(id) {
