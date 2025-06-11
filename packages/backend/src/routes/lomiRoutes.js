@@ -27,7 +27,7 @@ router.post("/logout", ensureAuthenticated, (req, res) => {
 //router.use(ensureAuthenticated);
 
 //Menu Routes
-router.get("/menu-items", ensureAuthenticated, ensureAdmin, getAllFoodItems);
+router.get("/menu-items", ensureAuthenticated, getAllFoodItems);
 router.get("/menu-items/:id", ensureAuthenticated, getFoodById);
 router.put("/menu-items/:id", ensureAuthenticated, updateFood);
 router.delete("/menu-items/:id", ensureAuthenticated, ensureAdmin, deleteFood);
