@@ -8,7 +8,6 @@ export function UserAvatar({ avatarUrl = "", setNotification }) {
   const { user } = useAuth();
   const [open, setOpen] = useState(false);
   const [updateUserToggle, setUpdateUserToggle] = useState(false);
-  const [showConfirm, setShowConfirm] = useState(false);
   const menuRef = useRef(null);
 
   useEffect(() => {
@@ -111,13 +110,12 @@ export function UserAvatar({ avatarUrl = "", setNotification }) {
     if (!flag) {
       return;
     }
-    
+    const password = prompt("Please enter your password to confirm:");
+    if (!password) return;
+
     const form = delref.current;
     
-    if (!password) {
-      return;
-    }
-
+    if (!form) return;
 
     try {
       const formData = new FormData(form)
@@ -174,6 +172,7 @@ export function UserAvatar({ avatarUrl = "", setNotification }) {
           {updateUserToggle == false ? (
             <div className="settings-options">
               <button
+                type="button"
                 className="dropdown-item"
                 onClick={() => setUpdateUserToggle(true)}
               >
@@ -197,12 +196,14 @@ export function UserAvatar({ avatarUrl = "", setNotification }) {
                   name="name"
                   id="name"
                   placeholder="Your name"
+                  defaultValue={user.name}
                 />
                 <input
                   type="email"
                   name="email"
                   id="email"
                   placeholder="Your email"
+                  defaultValue={user.email}
                 />
                 <input
                   type="password"
