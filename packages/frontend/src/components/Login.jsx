@@ -60,7 +60,7 @@ const Login = () => {
         const result = await login(loginData);
 
         if (result.success) {
-            navigate("/");
+            navigate("/menu");
         } else {
             setError(result.message);
         }
