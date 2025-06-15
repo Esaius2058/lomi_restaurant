@@ -42,6 +42,7 @@ button {
   font-size: 15px;
   color: var(--beige);
   font-weight: 500;
+  transition: all 0.3s ease-in-out;
 }
 
 button:hover {
@@ -334,17 +335,31 @@ span {
 .dark .form-box {
   background-color: var(--beige);
 }
+.light button{
+  background-color: var(--beige);
+  color: var(--dark-dark-brown);
+}
+.light button:hover{
+  background-color: var(--dark-brown);
+  color: var(--beige);
+}
 .form-box h1 {
   text-align: center;
   margin-bottom: 1rem;
 }
+.form-box .button-wrapper {
+  display: flex;
+  justify-content: center;
+}
 .dark {
   background-color: var(--dark-dark-brown);
   color: black;
+  transition: all 0.3s ease-in-out;
 }
 .light {
   background-color: var(--beige);
   color: white;
+  transition: all 0.3s ease-in-out;
 }
 input {
   width: 80%;

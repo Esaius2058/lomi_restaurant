@@ -12,9 +12,9 @@ router.get("/", (req, res) => {
 });
 // User routes
 router.get("/users", ensureAuthenticated, ensureAdmin, getAllUsers);
-router.get("/user/:id", ensureAuthenticated, getUserProfile);
-router.put("/user/:id", ensureAuthenticated, updateUserProfile);
-router.delete("/user/:id", ensureAuthenticated, deleteUserProfile);
+router.get("/user/me", ensureAuthenticated, getUserProfile);
+router.put("/user/me", ensureAuthenticated, updateUserProfile);
+router.delete("/user/me", ensureAuthenticated, deleteUserProfile);
 // Authentication routes
 router.post("/signup", createUser);
 router.post("/login", loginUser);
@@ -27,7 +27,7 @@ router.post("/logout", ensureAuthenticated, (req, res) => {
 //router.use(ensureAuthenticated);
 
 //Menu Routes
-router.get("/menu-items", ensureAuthenticated, ensureAdmin, getAllFoodItems);
+router.get("/menu-items", ensureAuthenticated, getAllFoodItems);
 router.get("/menu-items/:id", ensureAuthenticated, getFoodById);
 router.put("/menu-items/:id", ensureAuthenticated, updateFood);
 router.delete("/menu-items/:id", ensureAuthenticated, ensureAdmin, deleteFood);

@@ -4,7 +4,7 @@ import { handleCreateUser, handleUpdateUser, handleDeleteUser, handleGetAllUsers
 
 export async function createUser(req, res) {
     try {
-        const { username, email, password } = req.body;
+        const { name, email, password } = req.body;
 
         const existingUser = await handleGetUserByEmail(email);
 
@@ -13,7 +13,7 @@ export async function createUser(req, res) {
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
-        const newUser = await handleCreateUser(email, username, hashedPassword);
+        const newUser = await handleCreateUser(email, name, hashedPassword);
 
         //generate JWT token
         const token = jwt.sign(
@@ -25,7 +25,13 @@ export async function createUser(req, res) {
             { expiresIn: "4h" }
         );
 
-        res.status(201).json({ message: "User registered successfully", token });
+        res.status(201).json({ message: "User registered successfully", token,
+            user: {
+                id: newUser.id,
+                name: newUser.name,
+                email: newUser.email
+            }
+         });
     } catch (error) {
         console.error("Error creating user: ", error);
         res.status(500).json({ message: "Internal Server Error" });
@@ -59,7 +65,11 @@ export async function loginUser(req, res) {
             { expiresIn: "4h" }
         );
 
-        res.status(200).json({ message: "User logged in successfully", token });
+        res.status(200).json({ message: "User logged in successfully", token , user: {
+                id: user.id,
+                name: user.name,
+                email: user.email
+            }});
     } catch (error) {
         console.error("Error logging in user: ", error);
         res.status(500).json({ message: "Internal Server Error" });
@@ -82,7 +92,11 @@ export async function getUserProfile(req, res) {
         const userId = req.user.id;
         const user = await handleGetUser(Number(userId));
 
-        res.status(200).json(user);
+        res.status(200).json({ user: {
+            id: user.id,
+            name: user.name,
+            email: user.email
+        }});
     } catch (error) {
         console.error("Error fetching user profile: ", error);
         res.status(500).json({ message: "Internal Server Error" });
@@ -92,13 +106,50 @@ export async function getUserProfile(req, res) {
 export async function updateUserProfile(req, res) {
     try {
         const userId = req.user.id;
-        const { username, email, password } = req.body;
+        //const password = req.user.passwordHash;
+        const { name, email, newpassword, oldpassword } = req.body;
 
-        const hashedPassword = await bcrypt.hash(password, 10);
+        const currentUser = await handleGetUser(userId);
+        if (!currentUser) {
+            return res.status(404).json({ message: "User not found"});
+        }
 
-        const updatedUser = await handleUpdateUser(userId, username, email, hashedPassword);
+        // Verify old password only if changing password
+        if (newpassword) {
+            if (!oldpassword) {
+                return res.status(400).json({ message: "Old password is required to set a new password."});
+            }
+            const passwordMatch = await bcrypt.compare(oldpassword, currentUser.passwordHash);
 
-        res.status(200).json({ message: "User updated successfully", updatedUser });
+
+            if (!passwordMatch) {
+                return res.status(400).json({ message: "Current password is incorrect" });
+        }
+        }
+
+        const hashedPassword = newpassword ? await bcrypt.hash(newpassword, 10): currentUser.passwordHash;
+
+        const updatedUser = await handleUpdateUser(userId, name || currentUser.name, email || currentUser.email, hashedPassword);
+
+        let token;
+        if (email && email !== currentUser.email) {
+            token = jwt.sign(
+                { 
+                    sub: updatedUser.id,
+                    id: updatedUser.id 
+                },
+                process.env.JWT_SECRET,
+                { expiresIn: "4h" }
+            );
+        }
+
+        res.status(200).json({ message: "Profile updated successfully", user: {
+                id: updatedUser.id,
+                name: updatedUser.name,
+                email: updatedUser.email
+            },
+            token: token || undefined
+        });
     } catch (error) {
         console.error("Error updating user profile: ", error);
         res.status(500).json({ message: "Internal Server Error" });
@@ -108,6 +159,15 @@ export async function updateUserProfile(req, res) {
 export async function deleteUserProfile(req, res) {
     try {
         const userId = req.user.id;
+        const { password } = req.body
+
+        const passwordMatch = await bcrypt.compare(password, req.user.passwordHash);
+
+        if (!passwordMatch) {
+            return res.status(400).json({ message: "Wrong password!!" });
+        }
+
+
         await handleDeleteUser(userId);
 
         res.status(200).json({ message: "User deleted successfully" });

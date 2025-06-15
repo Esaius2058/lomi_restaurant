@@ -1,6 +1,33 @@
-import{ MenuNavbar} from "./Navbar";
+import { MenuNavbar } from "./Navbar";
+import { useAuth } from "../context/AuthContext";
+import { fetchMenuItems } from "../services/auth";
+import { useEffect, useState } from "react";
 
 const MenuPage = () => {
+    const { user } = useAuth();
+    const [menuItems, setMenuItems] = useState([]);
+    const token = localStorage.getItem("token")
+
+    useEffect(async () => {
+        if (token) {
+            const menu = await fetchMenuItems(token);
+            setMenuItems(menu);
+        } else {
+            window.location.href = "/auth/login";
+        }
+    },);
+
+    // Group available items by category
+    const groupedItems = menuItems
+        .filter(item => item.availability)
+        .reduce((groups, item) => {
+            if (!groups[item.category]) {
+                groups[item.category] = [];
+            }
+            groups[item.category].push(item);
+            return groups;
+        }, {});
+
     return (
         <div className="menu-page">
             <MenuNavbar />
@@ -8,130 +35,34 @@ const MenuPage = () => {
                 <h1>Our Menu</h1>
                 <h2>Authentic Kenyan Dishes</h2>
                 <section className="menu-section">
-                    <h1 className="menu-section-header">Main Dishes</h1>
-                    <div className="menu-section-item">
-                        <div className="menu-section-description">
-                            <img src="/images/ugali-mayai.png" alt="ugali-mayai" />
-                            <div className="menu-section-description-text">
-                                <h3>Ugali Mayai</h3>
-                                <p>Served with sukuma wiki and sliced avocados</p>
-                                <p><span>Ksh 120.00</span></p>
-                            </div>
+                    {Object.entries(groupedItems).map(([category, items]) => (
+                        <div key={category}>
+                            <h1 className="menu-section-header">{category}</h1>
+                            {items.map((item) => (
+                                <div key={item.id} className="menu-section-item">
+                                    <div className="menu-section-description">
+                                        <img
+                                            src={item.imageUrl}
+                                            alt={`${item.name} image`}
+                                            className="border-radius"
+                                        />
+                                        <div className="menu-section-description-text">
+                                            <h3>{item.name}</h3>
+                                            <p>{item.description}</p>
+                                            <p><span>Ksh {item.price.toFixed(2)}</span></p>
+                                        </div>
+                                    </div>
+                                    <div className="menu-section-cta">
+                                        <button>Add to orders</button>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
-                        <div className="menu-section-cta">
-                            <button>Add To Orders</button>
-                        </div>
-                    </div>
-                    <div className="menu-section-item">
-                        <div className="menu-section-description">
-                            <img src="/images/githeri.png" alt="Githeri image" />
-                            <div className="menu-section-description-text">
-                                <h3>Githeri</h3>
-                                <p>Served with sliced Avocados</p>
-                                <p><span>Ksh 90.00</span></p>
-                            </div>
-                        </div>
-                        <div className="menu-section-cta">
-                            <button>Add to orders</button>
-                        </div>
-                    </div>
-                    <div className="menu-section-item">
-                        <div className="menu-section-description">
-                            <img src="/images/pilau_special.png" className="border-radius" alt="Pilau Special image" />
-                            <div className="menu-section-description-text">
-                                <h3>Pilau Special</h3>
-                                <p>Served with kachumbari</p>
-                                <p><span>Ksh 120.00</span></p>
-                            </div>
-                        </div>
-                        <div className="menu-section-cta">
-                            <button>Add to orders</button>
-                        </div>
-                    </div>
-                    <h1 className="menu-section-header">Snacks</h1>
-                    <div className="menu-section-item">
-                        <div className="menu-section-description">
-                            <img src="/images/mandazi.png" className="border-radius" alt="mandazi image" />
-                            <div className="menu-section-description-text">
-                                <h3>Kenyan Andazi</h3>
-                                <p>Served with hot Kenyan brewed tea</p>
-                                <p><span>Ksh @20.00</span></p>
-                            </div>
-                        </div>
-                        <div className="menu-section-cta">
-                            <button>Add to orders</button>
-                        </div>
-                    </div>
-                    <div className="menu-section-item">
-                        <div className="menu-section-description">
-                            <img src="/images/samosas.png" className="border-radius" alt="samosa image" />
-                            <div className="menu-section-description-text">
-                                <h3>Kenyan Samosas</h3>
-                                <p>Garnished with corriender</p>
-                                <p><span>Ksh @50.00</span></p>
-                            </div>
-                        </div>
-                        <div className="menu-section-cta">
-                            <button>Add to orders</button>
-                        </div>
-                    </div>
-                    <div className="menu-section-item">
-                        <div className="menu-section-description">
-                            <img src="/images/chapatis.png" className="border-radius" alt="chapati image" />
-                            <div className="menu-section-description-text">
-                                <h3>Kenyan Chapatis</h3>
-                                <p>Best enjoyed hot</p>
-                                <p><span>Ksh @20.00</span></p>
-                            </div>
-                        </div>
-                        <div className="menu-section-cta">
-                            <button>Add to orders</button>
-                        </div>
-                    </div>
-                    <h1 className="menu-section-header">Drinks</h1>
-                    <div className="menu-section-item">
-                        <div className="menu-section-description">
-                            <img src="/images/tea.jpg" className="border-radius" alt="tea image" />
-                            <div className="menu-section-description-text">
-                                <h3>Kenyan Tea</h3>
-                                <p>Kenyan brewed tea best enjoyed hot</p>
-                                <p><span>Ksh @20.00</span></p>
-                            </div>
-                        </div>
-                        <div className="menu-section-cta">
-                            <button>Add to orders</button>
-                        </div>
-                    </div>
-                    <div className="menu-section-item">
-                        <div className="menu-section-description">
-                            <img src="/images/soda.png" className="border-radius" alt="soda image" />
-                            <div className="menu-section-description-text">
-                                <h3>Soda</h3>
-                                <p>Best enjoyed chilled</p>
-                                <p><span>Ksh @70.00</span></p>
-                            </div>
-                        </div>
-                        <div className="menu-section-cta">
-                            <button>Add to orders</button>
-                        </div>
-                    </div>
-                    <div className="menu-section-item">
-                        <div className="menu-section-description">
-                            <img src="/images/juice.png" className="border-radius" alt="juice image" />
-                            <div className="menu-section-description-text">
-                                <h3>Fresh Juice</h3>
-                                <p>Best enjoyed chilled</p>
-                                <p><span>Ksh @50.00</span></p>
-                            </div>
-                        </div>
-                        <div className="menu-section-cta">
-                            <button>Add to orders</button>
-                        </div>
-                    </div>
+                    ))}
                 </section>
             </div>
         </div>
     );
-}
+};
 
 export default MenuPage;

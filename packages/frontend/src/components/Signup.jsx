@@ -1,51 +1,28 @@
-/*const SignUp = () => {
-
-  return (
-    <div className="signup">
-      <h1>Sign Up</h1>
-      <form>
-        <div>
-          <label htmlFor="username">Username:</label>
-          <input type="text" id="username" name="username" required />
-        </div>
-        <div>
-          <label htmlFor="email">Email:</label>
-          <input type="email" id="email" name="email" required />
-        </div>
-        <div>
-          <label htmlFor="password">Password:</label>
-          <input type="password" id="password" name="password" required />
-        </div>
-        <button type="submit">Sign Up</button>
-      </form>
-    </div>
-  );
-}
-
-export default SignUp;*/
-
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "../index.css";
+//import { SignupApi } from "../services/auth";
+import { useAuth } from "../context/AuthContext";
 
 const SignUp = () => {
     // State for email, phone and password
     // initializing variables email, phone, password etc to store input
     // useState("") initializes the variables to an empty string
-    const [identifier, setIdentifier] = useState(""); // email or phone
+    const [email, setEmail] = useState(""); // email or phone
     const [name, setName] = useState(""); // name
     const [password, setPassword] = useState("");     // password input
     const [confPassword, setConfPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false); // toggle for password visibility
     const [showConfPassword, setShowConfPassword] = useState(false); // toggle for password visibility
-    const [identifierError, setIdentifierError] = useState("");
+    const [emailError, setEmailError] = useState("");
     const [passwordError, setPasswordError] = useState("");
     const [confPasswordError, setConfPasswordError] = useState("");
     const [nameError, setNameError] = useState("");
+    const [error, setError] = useState("");
 
     const [theme, setTheme] = useState(localStorage.getItem("theme") || "dark");
     const navigate = useNavigate();            // redirect function
-
+    const { signup } = useAuth();
 
     // Check if already logged in
     useEffect(() => {
@@ -67,62 +44,61 @@ const SignUp = () => {
         e.preventDefault();   // Prevents the default reloading
         setError("");  // Clears previous errors before new validation
 
-        // Check if at least email or phone is provided
-        if (!identifier) {
-            setError("Please enter your email or phone number.");
-            return;
-        }
-        if (!password) {
-            setError("Please enter your password.");
-            return;
-        }
-        if (!confPassword) {
-            setError("Please confirm your password.");
-            return;
-        }
-        if (!name) {
-            setError("Please enter your name.");
-            return;
-        }
-        if (confPassword !== password) {
-            setError("Passwords do not match.")
-        }
+        const validateForm = () => {
+            let valid = true;
 
-        /*const loginData = {password, identifier};
+            // Clear previous errors
+            setEmailError("");
+            setPasswordError("");
+            setConfPasswordError("");
+            setNameError("");
+            setError("");
 
-        try {
-            const response = await fetch("https://your-api.com/api/login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(loginData),
-            });
-
-            const data = await response.json();
-
-            if (response.ok) {
-                // Save token to localStorage
-                localStorage.setItem("token", data.token);
-                localStorage.setItem("token_expiry", Date.now() + 3600 * 1000);
-                navigate("/home")
-            } else {
-                console.error(data.message)
-                setError("Login failed");
-
+            if (!email) {
+                setEmailError("Please enter your email.");
+                valid = false;
             }
-        } catch (err) {
-            console.error(err)
-            setError("Something went wrong :(");
-        }*/
+
+            if (!password) {
+                setPasswordError("Please enter your password.");
+                valid = false;
+            }
+
+            if (!confPassword) {
+                setConfPasswordError("Please confirm your password.");
+                valid = false;
+            }
+
+            if (!name) {
+                setNameError("Please enter your name.");
+                valid = false;
+            }
+
+            if (password && confPassword && password !== confPassword) {
+                setConfPasswordError("Passwords do not match.");
+                valid = false;
+            }
+
+            return valid;
+            };
+
+        if (!validateForm()) return;
+        
+        const signUpData = { name, email, password };
+        
+        const result = await signup(signUpData);
+        if (result.success) {
+            //setAuthState({user: result.user});
+            navigate("/");
+        } else {
+            setError(result.message)
+        }
     };
 
     return (
         <div className={`container ${theme}`}>
             <form onSubmit={handleSubmit} className="form-box">
                 <h1>Sign Up</h1>
-                <div>
-                    <label>Name:</label>
                     <input
                         type="text"
                         value={name}
@@ -136,25 +112,22 @@ const SignUp = () => {
                         placeholder="John Doe"
                     />
                     {nameError && <div className="error-text">{nameError}</div>}
-                </div>
                 <div>
-                    <label>Email or Phone:</label>
                     <input
-                        type="text"
-                        value={identifier}
-                        onChange={(e) => { setIdentifier(e.target.value)
+                        type="email"
+                        value={email}
+                        onChange={(e) => { setEmail(e.target.value)
                         if (!e.target.value) {
-                            setIdentifierError("Please enter your phone or email.");
+                            setEmailError("Please enter your email.");
                           } else {
-                            setIdentifierError("");
+                            setEmailError("");
                           }
                         }}
-                        placeholder="Email or Phone"
+                        placeholder="example@gmail.com"
                     />
-                    {identifierError && <div className="error-text">{identifierError}</div>}
+                    {emailError && <div className="error-text">{emailError}</div>}
                 </div>
                 <div className="password-wrapper">
-                    <label>Password:</label>
                     <div className="password-field">
                         <input
                             type={showPassword ? "text" : "password"}
@@ -167,7 +140,6 @@ const SignUp = () => {
                               }
                             }}
                             placeholder="Password"
-                            required
                         />
                         {passwordError && <div className="error-text">{passwordError}</div>}
                         <span
@@ -179,7 +151,6 @@ const SignUp = () => {
                     </div>
                 </div>
                 <div className="password-wrapper">
-                    <label>Confirm Password:</label>
                     <div className="password-field">
                         <input
                             type={showConfPassword ? "text" : "password"}
@@ -197,7 +168,6 @@ const SignUp = () => {
                             }}
 
                             placeholder="Confirm Password"
-                            required
                         />
                         {confPasswordError && <div className="error-text">{confPasswordError}</div>}
                         <span
@@ -207,10 +177,13 @@ const SignUp = () => {
                             {showConfPassword ? "hide" : "show"} 
                         </span>
                     </div>
+                    {error && <div className="error-text">{error}</div>}
                 </div>
                 
-
-                <button type="submit">Sign up</button>
+                <div className="button-wrapper">
+                    <button type="submit">Sign up</button>
+                </div>
+                
                 <div className="toggle-theme" onClick={toggleTheme}>
                     Switch to {theme === "dark" ? "Light" : "Dark"} Mode.
                 </div>
