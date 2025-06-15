@@ -8,9 +8,10 @@ const MenuPage = () => {
     const [menuItems, setMenuItems] = useState([]);
     const token = localStorage.getItem("token")
 
-    useEffect(() => {
+    useEffect(async () => {
         if (token) {
-            fetchMenuItems(token).then(setMenuItems);
+            const menu = await fetchMenuItems(token);
+            setMenuItems(menu);
         } else {
             window.location.href = "/auth/login";
         }
