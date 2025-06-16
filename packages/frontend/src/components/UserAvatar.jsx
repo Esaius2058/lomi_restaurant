@@ -4,12 +4,12 @@ import { UserCircle } from "lucide-react";
 import { updateUserApi, deleteUserProfile, logout } from "../services/auth";
 import { useAuth } from "../context/AuthContext";
 
-export function UserAvatar({ avatarUrl = "", setNotification }) {
+export function UserAvatar({ avatarUrl = "" }) {
   const { user } = useAuth();
   const [open, setOpen] = useState(false);
   const [updateUserToggle, setUpdateUserToggle] = useState(false);
+  const [notification, setNotification] = useState(null);
   const menuRef = useRef(null);
-
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
@@ -22,31 +22,29 @@ export function UserAvatar({ avatarUrl = "", setNotification }) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  //const api = import.meta.env.VITE_BACKEND_API_URL;
-  //const logout = () => {}
   const handleLogout = async () => {
-
-    const result = await logout();
-
-    if (result.success) {
+    try {
+      await logout();
+      console.log("Logged out successfully");
       window.location.href = "/auth/login";
-    } else {
-        setNotification({
+    } catch (error) {
+      console.log("Error logging out: ", error);
+      setNotification({
         message: "Logout failed",
         description: result.message,
         type: "error",
-        });
+      });
     }
   };
 
   const profileRef = useRef(null);
-  useEffect(() => {
+  /*useEffect(() => {
     if (profileRef.current) {
       console.log("Form element:", profileRef.current); // Verify ref binding
       profileRef.current.addEventListener("submit", handleUserProfileChange);
       return () => profileRef.current?.removeEventListener("submit", handleUserProfileChange);
     }
-  }, []);
+  }, []);*/
   const handleUserProfileChange = async (e) => {
     e.preventDefault();
     console.log("submit triggered");
@@ -66,12 +64,13 @@ export function UserAvatar({ avatarUrl = "", setNotification }) {
         throw new Error("New password and confirm password do not match.");
       }
 
-      const updateData = ({
+      const updateData = {
         name: name,
         email: email,
         oldpassword: oldPassword,
-        newpassword: newPassword
-      })
+        newpassword: newPassword,
+      };
+
       const update = await updateUserApi(updateData);
 
       if (update.success) {
@@ -101,7 +100,7 @@ export function UserAvatar({ avatarUrl = "", setNotification }) {
     }
   };
 
-  const delref = useRef(null)
+  const delref = useRef(null);
   const handleDeleteProfile = async () => {
     const flag = confirm(
       "Are you sure you want to delete your account? This action cannot be undone."
@@ -114,12 +113,12 @@ export function UserAvatar({ avatarUrl = "", setNotification }) {
     if (!password) return;
 
     const form = delref.current;
-    
+
     if (!form) return;
 
     try {
-      const formData = new FormData(form)
-      const password = formData.get("password")
+      const formData = new FormData(form);
+      const password = formData.get("password");
 
       const deleteResponse = await deleteUserProfile(password);
 
@@ -140,11 +139,11 @@ export function UserAvatar({ avatarUrl = "", setNotification }) {
         });
       }
     } catch (error) {
-        console.error("Error deleting account:", error);
-        setNotification({
-          message: "Failed to delete account. Try again.",
-          type: "error",
-        });
+      console.error("Error deleting account:", error);
+      setNotification({
+        message: "Failed to delete account. Try again.",
+        type: "error",
+      });
     }
   };
 
@@ -155,7 +154,7 @@ export function UserAvatar({ avatarUrl = "", setNotification }) {
           <img src={avatarUrl} alt="user-avatar" className="avatar-image" />
         ) : (
           <div className="avatar-placeholder">
-            <UserCircle size={35}/>
+            <UserCircle size={35} />
           </div>
         )}
       </button>
@@ -164,29 +163,18 @@ export function UserAvatar({ avatarUrl = "", setNotification }) {
         <div className="dropdown-menu">
           <div className="profile-info">
             <span className="profile-name">{user.name || "Guest"}</span>
-            <span className="profile-email">
-              {user.email || "No email"}
-            </span>
+            <span className="profile-email">{user.email || "No email"}</span>
           </div>
           <hr className="divider" />
           {updateUserToggle == false ? (
             <div className="settings-options">
-              <button
-                type="button"
-                className="dropdown-item"
-                onClick={() => setUpdateUserToggle(true)}
-              >
+              <button type="button" onClick={() => setUpdateUserToggle(true)}>
                 Update profile
               </button>
-              <button
-                type="button"
-                onClick={handleLogout}
-              >
+              <button type="button" onClick={handleLogout}>
                 Log Out
               </button>
-              <button onClick={handleDeleteProfile}>
-                Delete Account
-              </button>
+              <button onClick={handleDeleteProfile}>Delete Account</button>
             </div>
           ) : (
             <div className="password-change">
