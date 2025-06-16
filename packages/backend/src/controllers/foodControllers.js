@@ -66,8 +66,8 @@ export async function storeImage(req, res) {
 
 export async function checkAvailabality(req, res) {
   try{
-    const { id } = req.params;
-    const available = await handleMarkAvailability(id);
+    const { id, availability } = req.params;
+    const available = await handleMarkAvailability(id, availability);
 
     res.status(200).json({available});
   }catch(error){
