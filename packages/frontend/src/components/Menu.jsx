@@ -4,65 +4,68 @@ import { fetchMenuItems } from "../services/auth";
 import { useEffect, useState } from "react";
 
 const MenuPage = () => {
-    const { user } = useAuth();
-    const [menuItems, setMenuItems] = useState([]);
-    const token = localStorage.getItem("token")
+  const [menuItems, setMenuItems] = useState([]);
+  const token = localStorage.getItem("token");
 
-    useEffect(async () => {
-        if (token) {
-            const menu = await fetchMenuItems(token);
-            setMenuItems(menu);
-        } else {
-            window.location.href = "/auth/login";
-        }
-    },);
+  useEffect(() => {
+    const fetchData = async () => {
+      if (token) {
+        const menu = await fetchMenuItems(token);
+        setMenuItems(menu);
+      } else {
+        window.location.href = "/auth/login";
+      }
+    };
 
-    // Group available items by category
-    const groupedItems = menuItems
-        .filter(item => item.availability)
-        .reduce((groups, item) => {
-            if (!groups[item.category]) {
-                groups[item.category] = [];
-            }
-            groups[item.category].push(item);
-            return groups;
-        }, {});
+    fetchData();
+  });
 
-    return (
-        <div className="menu-page">
-            <MenuNavbar />
-            <div className="menu-body">
-                <h1>Our Menu</h1>
-                <h2>Authentic Kenyan Dishes</h2>
-                <section className="menu-section">
-                    {Object.entries(groupedItems).map(([category, items]) => (
-                        <div key={category}>
-                            <h1 className="menu-section-header">{category}</h1>
-                            {items.map((item) => (
-                                <div key={item.id} className="menu-section-item">
-                                    <div className="menu-section-description">
-                                        <img
-                                            src={item.imageUrl}
-                                            alt={`${item.name} image`}
-                                            className="border-radius"
-                                        />
-                                        <div className="menu-section-description-text">
-                                            <h3>{item.name}</h3>
-                                            <p>{item.description}</p>
-                                            <p><span>Ksh {item.price.toFixed(2)}</span></p>
-                                        </div>
-                                    </div>
-                                    <div className="menu-section-cta">
-                                        <button>Add to orders</button>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    ))}
-                </section>
-            </div>
-        </div>
-    );
+  // Group available items by category
+  const groupedItems = menuItems
+    .filter((item) => item.availability)
+    .reduce((groups, item) => {
+      if (!groups[item.category]) {
+        groups[item.category] = [];
+      }
+      groups[item.category].push(item);
+      return groups;
+    }, {});
+
+  return (
+    <div className="menu-page">
+      <MenuNavbar />
+      <div className="menu-body">
+        <h1>Our Menu</h1>
+        <h2>Authentic Kenyan Dishes</h2>
+          {Object.entries(groupedItems).map(([category, items]) => (
+            <section key={category} className="menu-section">
+              <h1 className="menu-section-header">{category}</h1>
+              {items.map((item) => (
+                <div key={item.id} className="menu-section-item">
+                  <div className="menu-section-description">
+                    <img
+                      src={item.imageUrl}
+                      alt={`${item.name} image`}
+                      className="border-radius"
+                    />
+                    <div className="menu-section-description-text">
+                      <h3>{item.name}</h3>
+                      <p>{item.description}</p>
+                      <p>
+                        <span>Ksh {item.price.toFixed(2)}</span>
+                      </p>
+                    </div>
+                  </div>
+                  <div className="menu-section-cta">
+                    <button>Add to orders</button>
+                  </div>
+                </div>
+              ))}
+            </section>
+          ))}
+      </div>
+    </div>
+  );
 };
 
 export default MenuPage;
