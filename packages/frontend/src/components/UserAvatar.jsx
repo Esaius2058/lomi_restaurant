@@ -4,12 +4,55 @@ import { UserCircle } from "lucide-react";
 import { updateUserApi, deleteUserProfile, logout } from "../services/auth";
 import { useAuth } from "../context/AuthContext";
 
+
+// if not token handle that
+
+
 export function UserAvatar({ avatarUrl = "" }) {
   const { user } = useAuth();
   const [open, setOpen] = useState(false);
   const [updateUserToggle, setUpdateUserToggle] = useState(false);
   const [notification, setNotification] = useState(null);
   const menuRef = useRef(null);
+  const token = localStorage.getItem("token");
+
+  if (!token){
+
+    const signin = () => {
+      window.location.href = "/auth/signup";
+    }
+
+    return(
+      <div className="user-avatar-container" ref={menuRef}>
+      <button className="avatar-button" onClick={() => setOpen(!open)}>
+        {avatarUrl !== "" ? (
+          <img src={avatarUrl} alt="user-avatar" className="avatar-image" />
+        ) : (
+          <div className="avatar-placeholder">
+            <UserCircle size={35} />
+          </div>
+        )}
+      </button>
+
+      {open && (
+        <div className="dropdown-menu">
+          <div className="profile-info">
+            <span className="profile-name">{"Stop ghosting us like last week's leftovers, log in and get fresh food!"}</span>
+            <span className="profile-email">{"Your next favorite meal awaits, sign up now!"}</span>
+          </div>
+          <hr className="divider" />
+          <div className="settings-options">
+            <button type="button" onClick={signin}>
+              Sign in
+            </button>
+          </div>   
+        </div>
+        
+      )}
+      </div>
+    )
+  }
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
