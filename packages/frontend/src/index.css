@@ -362,7 +362,7 @@ span {
   transition: all 0.3s ease-in-out;
 }
 input {
-  width: 80%;
+  width: 100%;
   padding: 10px;
   margin-bottom: 1rem;
   border: 2px solid var(--dark-dark-brown);
