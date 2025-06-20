@@ -70,8 +70,6 @@ const Login = () => {
         <div className={`container ${theme}`}>
             <form onSubmit={handleSubmit} className="form-box">
                 <h1>Login</h1>
-                <div>
-                    <label>Email:</label>
                     <input
                         type="text"
                         value={email}
@@ -85,9 +83,6 @@ const Login = () => {
                         placeholder="example@gmail.com"
                     />
                     {emailError && <div className="error-text">{emailError}</div>}
-                </div>
-                <div className="password-wrapper">
-                    <label>Password:</label>
                     <div className="password-field">
                         <input
                             type={showPassword ? "text" : "password"}
@@ -110,7 +105,6 @@ const Login = () => {
                         </span>
                     </div>
                     {error && <div className="error-text">{error}</div>}
-                </div>
 
                 <div className="button-wrapper">
                     <button type="submit">Login</button>

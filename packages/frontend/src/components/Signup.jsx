@@ -112,7 +112,6 @@ const SignUp = () => {
                         placeholder="John Doe"
                     />
                     {nameError && <div className="error-text">{nameError}</div>}
-                <div>
                     <input
                         type="email"
                         value={email}
@@ -126,8 +125,6 @@ const SignUp = () => {
                         placeholder="example@gmail.com"
                     />
                     {emailError && <div className="error-text">{emailError}</div>}
-                </div>
-                <div className="password-wrapper">
                     <div className="password-field">
                         <input
                             type={showPassword ? "text" : "password"}
@@ -149,8 +146,6 @@ const SignUp = () => {
                             {showPassword ? "hide" : "show"} 
                         </span>
                     </div>
-                </div>
-                <div className="password-wrapper">
                     <div className="password-field">
                         <input
                             type={showConfPassword ? "text" : "password"}
@@ -178,7 +173,6 @@ const SignUp = () => {
                         </span>
                     </div>
                     {error && <div className="error-text">{error}</div>}
-                </div>
                 
                 <div className="button-wrapper">
                     <button type="submit">Sign up</button>
