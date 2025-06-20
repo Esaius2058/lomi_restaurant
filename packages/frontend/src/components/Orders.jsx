@@ -1,9 +1,12 @@
+/* eslint-disable no-unused-vars */
+
 import { NavBar } from "./Navbar";
 import { useState, useEffect } from "react";
 import { Trash2 } from "lucide-react";
+import { createOrder, updateOrder, deleteOrder } from "../services/orders";
 
 const Orders = () => {
-  const [orderId] = useState("gshhjKJ");
+  const [orderId] = useState("1234");
   const [orderDate] = useState("2025-06-06");
 
   const [orderedItems, setOrderedItems] = useState([
@@ -24,7 +27,7 @@ const Orders = () => {
     // mastercard: "/icons/mastercard.svg",
   };
 
-  // Automatically calculate subtotal and VAT on render/update
+    // Automatically calculate subtotal and VAT on render/update
   useEffect(() => {
     const total = orderedItems.reduce(
       (acc, item) => acc + item.price * item.qty,
@@ -39,6 +42,66 @@ const Orders = () => {
     setOrderedItems([]);
     setSubtotal(0);
     setVat(0);
+  };
+
+
+  const handleSubmitOrder = async () => {
+    const orderData = {
+      items: orderedItems.map(item => ({
+        name: item.name,
+        price: item.price,
+        qty: item.qty,
+      })),
+      subtotal,
+      vat,
+      total: subtotal + vat,
+      paymentMethod,
+      orderDate,
+    };
+    try {
+      const order = await createOrder(orderData);
+      console.log("Order created successfully:", order);
+      alert("Order created successfully!");
+    } catch (error) {
+      console.error("Error creating order:", error);
+      alert("Failed to submit order");
+    }
+  };
+
+  const handleUpdateOrder = async () => {
+    const orderData = {
+      items: orderedItems.map(item => ({
+        name: item.name,
+        price: item.price,
+        qty: item.qty,
+      })),
+      subtotal,
+      vat,
+      total: subtotal + vat,
+      paymentMethod,
+      orderDate,
+    };
+    try {
+      await updateOrder(orderId, orderData);
+      alert("Order updated successfully!");
+   
+    } catch (error) {
+      alert("Failed to update order");
+    }
+  };
+
+
+  // Function to delete the order
+  // This function will be called when the user clicks the delete button
+  const handleDeleteOrder = async () => {
+    try {
+      await deleteOrder(orderId);
+      alert("Order deleted successfully!");
+      setOrderedItems([]);
+
+    } catch (error) {
+      alert("Failed to delete order");
+    }
   };
 
   return (
@@ -64,16 +127,23 @@ const Orders = () => {
         </div>
 
         <div className="order-summary">
-        <div className="order-summary-header">
-          <h2>Order Summary</h2>
-          <button
-            onClick={handleClearOrder}
-            className="clear-order-btn"
-            title="Clear Order"
-          >
-            <Trash2 size={20} />
-          </button>
-            </div>
+          <div className="order-summary-header">
+            <h2>Order Summary</h2>
+            <button
+              onClick={handleClearOrder}
+              className="clear-order-btn"
+              title="Clear Order"
+            >
+              <Trash2 size={20} />
+            </button>
+            <button
+              onClick={handleSubmitOrder}
+              className="submit-order-btn"
+              title="Place Order"
+            >
+              Place Order
+            </button>
+          </div>
           <div className="summary-details">
             <div className="summary-row">
               <span>Subtotal</span>
@@ -98,9 +168,8 @@ const Orders = () => {
                   key={key}
                   src={src}
                   alt={key}
-                  className={`payment-icon ${
-                    paymentMethod === key ? "selected" : ""
-                  }`}
+                  className={`payment-icon ${paymentMethod === key ? "selected" : ""
+                    }`}
                   onClick={() => setPaymentMethod(key)}
                 />
               ))}
