@@ -240,12 +240,13 @@ span {
   background-color: var(--golden-brown);
   padding: 20px;
   border-radius: 20px;
-  height: 350px;
+  height: 230px;
   width: 100%;
   gap: 20px;
   max-width: 300px;
   font-family: "Inter", sans-serif;
   color: #1a1a1a;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
 .order-summary-header {
@@ -270,7 +271,6 @@ span {
   transition: transform 0.2s ease;
 }
 
-
 .clear-order-btn:hover {
   background: none;
   transform: scale(1.1);
@@ -288,9 +288,24 @@ span {
   border-top: 1px solid #000;
   padding-top: 0.5rem;
 }
+
 .payment-methods {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 300px;
+  gap: 10px;
+  padding: 20px;
+  background-color: var(--golden-brown);
+  border-radius: 20px;
   margin-top: 1rem;
+  color: var(--black);
+  font-family: "Inter", sans-serif;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
+
 .payment-options {
   display: flex;
   gap: 12px;
