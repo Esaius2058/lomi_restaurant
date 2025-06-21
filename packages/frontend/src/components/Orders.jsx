@@ -6,8 +6,16 @@ import { Trash2 } from "lucide-react";
 import { createOrder, updateOrder, deleteOrder } from "../services/orders";
 
 const Orders = () => {
-  const [orderId] = useState("1234");
-  const [orderDate] = useState("2025-06-06");
+  const generateOrderId = () => `ORD-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+
+  const formatDate = () => new Date().toLocaleDateString("en-KE", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+
+  const [orderId, setOrderId] = useState(generateOrderId);
+  const [orderDate, setOrderDate] = useState(formatDate);
 
   const [orderedItems, setOrderedItems] = useState([
     { name: "Chapo", price: 20, qty: 2 },
@@ -42,6 +50,8 @@ const Orders = () => {
     setOrderedItems([]);
     setSubtotal(0);
     setVat(0);
+    setOrderId(generateOrderId());
+    setOrderDate(formatDate());
   };
 
 
@@ -126,6 +136,7 @@ const Orders = () => {
           </div>
         </div>
 
+        <div className="order-section2">
         <div className="order-summary">
           <div className="order-summary-header">
             <h2>Order Summary</h2>
@@ -153,11 +164,12 @@ const Orders = () => {
               <span>VAT (16%)</span>
               <span>Ksh {vat}</span>
             </div>
-            <hr />
             <div className="summary-row total">
               <strong>Total</strong>
               <strong>Ksh {subtotal + vat}</strong>
             </div>
+            <hr />
+          </div>
           </div>
 
           <div className="payment-methods">

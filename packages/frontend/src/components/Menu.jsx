@@ -5,16 +5,11 @@ import { useEffect, useState } from "react";
 
 const MenuPage = () => {
   const [menuItems, setMenuItems] = useState([]);
-  const token = localStorage.getItem("token");
 
   useEffect(() => {
     const fetchData = async () => {
-      if (token) {
-        const menu = await fetchMenuItems(token);
-        setMenuItems(menu);
-      } else {
-        window.location.href = "/auth/login";
-      }
+      const menu = await fetchMenuItems();
+      setMenuItems(menu);
     };
 
     fetchData();
